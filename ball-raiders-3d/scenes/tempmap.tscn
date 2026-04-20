@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dn006yf6ye4hg"]
+
+[ext_resource type="PackedScene" uid="uid://cooj0ir6lwmtu" path="res://scenes/player.tscn" id="1_teymc"]
+[ext_resource type="Script" uid="uid://oxq3wnsduasq" path="res://scripts/enemy_control.gd" id="2_jtucn"]
+[ext_resource type="PackedScene" uid="uid://co3mr7q8p5y3n" path="res://scenes/ball.tscn" id="3_ix781"]
+[ext_resource type="PackedScene" uid="uid://c6hndahnjrq7g" path="res://scenes/ui.tscn" id="4_adqva"]
+[ext_resource type="PackedScene" uid="uid://1ggsldlnwicg" path="res://scenes/pause.tscn" id="5_m6tcy"]
+
+[sub_resource type="Environment" id="Environment_teymc"]
+background_mode = 1
+background_color = Color(0.003921569, 0.003921569, 0.003921569, 1)
+background_energy_multiplier = 16.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(0.43647724, 0.43647736, 0.4364772, 1)
+volumetric_fog_length = 32.0
+volumetric_fog_detail_spread = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_adqva"]
+top_radius = 50.0
+bottom_radius = 50.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m6tcy"]
+top_radius = 50.0
+bottom_radius = 50.0
+height = 20.0
+
+[node name="tempmap" type="Node3D" unique_id=1812292337]
+
+[node name="CharacterBody3D" parent="." unique_id=140477337 instance=ExtResource("1_teymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.384575, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=231704757]
+environment = SubResource("Environment_teymc")
+
+[node name="map" type="MeshInstance3D" parent="." unique_id=2141755494]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="map" unique_id=1565282997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+mesh = SubResource("CylinderMesh_adqva")
+
+[node name="wall" type="CSGCylinder3D" parent="map" unique_id=1714748983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+use_collision = true
+radius = 55.0
+height = 10.0
+sides = 20
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="map/wall" unique_id=823986032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43226624, 0)
+operation = 2
+mesh = SubResource("CylinderMesh_m6tcy")
+
+[node name="enemy_control" type="Node" parent="." unique_id=241684149]
+script = ExtResource("2_jtucn")
+ball_scene = ExtResource("3_ix781")
+
+[node name="spawn_timer" type="Timer" parent="enemy_control" unique_id=651182697]
+wait_time = 2.5
+autostart = true
+
+[node name="UI" parent="." unique_id=1306402346 instance=ExtResource("4_adqva")]
+
+[node name="Pause" parent="." unique_id=154197391 instance=ExtResource("5_m6tcy")]
+
+[connection signal="timeout" from="enemy_control/spawn_timer" to="enemy_control" method="_on_spawn_timer_timeout"]

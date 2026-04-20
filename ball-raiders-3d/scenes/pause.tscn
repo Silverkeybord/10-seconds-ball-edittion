@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://1ggsldlnwicg"]
+
+[ext_resource type="Script" uid="uid://3nrqv1rq8ix8" path="res://scripts/pause.gd" id="1_f1d2v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8yp4"]
+content_margin_left = 400.0
+content_margin_top = 100.0
+content_margin_right = 400.0
+content_margin_bottom = 100.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_m0klm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aicil"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Pause" type="Control" unique_id=154197391]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f1d2v")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2070608658]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r8yp4")
+
+[node name="ColorRect" type="PanelContainer" parent="PanelContainer" unique_id=308913314]
+layout_mode = 2
+theme = SubResource("Theme_m0klm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_aicil")
+
+[node name="Label" type="Label" parent="PanelContainer/ColorRect" unique_id=1291922617]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "YOU 
+ARE 
+PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
