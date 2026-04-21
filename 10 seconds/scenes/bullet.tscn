@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://blhjx8b7ww4bo"]
+
+[ext_resource type="Script" uid="uid://56tpx66ut3ol" path="res://scripts/bullet.gd" id="1_mkf8s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y25gk"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Animation" id="Animation_mkf8s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGMesh3D:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6745098, 0.6745098, 0.6745098, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y25gk"]
+resource_name = "first_person_spawn_invisiblity"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGMesh3D:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.6745098, 0.6745098, 0.6745098, 0), Color(0.6745098, 0.6745098, 0.6745098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5glv"]
+_data = {
+&"RESET": SubResource("Animation_mkf8s"),
+&"first_person_spawn_invisiblity": SubResource("Animation_y25gk")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_l5glv"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eoqba"]
+transparency = 1
+albedo_color = Color(0.6745098, 0.6745098, 0.6745098, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mkf8s"]
+radius = 0.2
+
+[node name="bullet" type="CharacterBody3D" unique_id=2020060623 node_paths=PackedStringArray("fade_in_animation")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_mkf8s")
+fade_in_animation = NodePath("fade_in_animation")
+metadata/bullet = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1366042366]
+shape = SubResource("BoxShape3D_y25gk")
+disabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=587213944]
+light_energy = 2.5
+omni_range = 1.0
+
+[node name="fade_in_animation" type="AnimationPlayer" parent="." unique_id=1610891321]
+libraries/ = SubResource("AnimationLibrary_l5glv")
+
+[node name="CSGMesh3D" type="MeshInstance3D" parent="." unique_id=86262333]
+mesh = SubResource("BoxMesh_l5glv")
+surface_material_override/0 = SubResource("StandardMaterial3D_eoqba")
+
+[node name="CSGMesh3D2" type="MeshInstance3D" parent="." unique_id=546934058]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+mesh = SubResource("BoxMesh_l5glv")
+surface_material_override/0 = SubResource("StandardMaterial3D_eoqba")
+
+[node name="CSGMesh3D3" type="MeshInstance3D" parent="." unique_id=1337038485]
+transform = Transform3D(0.7071067, 0.49999997, 0.49999994, 0, 0.70710677, -0.7071067, -0.7071067, 0.49999997, 0.49999994, 0, 0, 0)
+mesh = SubResource("BoxMesh_l5glv")
+surface_material_override/0 = SubResource("StandardMaterial3D_eoqba")
+
+[node name="CSGMesh3D4" type="MeshInstance3D" parent="." unique_id=1663918188]
+transform = Transform3D(-0.7071067, 0.4999999, 0.4999999, 0, 0.7071067, -0.7071067, -0.7071067, -0.4999999, -0.4999999, 0, 0, 0)
+mesh = SubResource("BoxMesh_l5glv")
+surface_material_override/0 = SubResource("StandardMaterial3D_eoqba")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1941380184]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1784056830]
+shape = SubResource("SphereShape3D_mkf8s")
+debug_color = Color(0.9607843, 0, 0, 1)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

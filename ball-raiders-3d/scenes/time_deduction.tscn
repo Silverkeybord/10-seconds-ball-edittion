@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://duykwlfblt35v"]
-
-[node name="Time_deduction" type="Label" unique_id=807168786]
-offset_right = 40.0
-offset_bottom = 40.0
-text = "-1s"
-horizontal_alignment = 1
-vertical_alignment = 1

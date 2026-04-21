@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://cooj0ir6lwmtu"]
+
+[ext_resource type="Script" uid="uid://dqb8rm5cpvhme" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://blhjx8b7ww4bo" path="res://scenes/bullet.tscn" id="2_dqkch"]
+[ext_resource type="Script" uid="uid://cfmjg7pe4r4eq" path="res://scripts/camera_piviot.gd" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://cuit3qh4f4w16" path="res://sounds/dash_sfx.WAV" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://b8o54t2425o0c" path="res://scenes/temp_sound.tscn" id="3_qlg0r"]
+[ext_resource type="FontFile" uid="uid://be0hbn8l35v7p" path="res://other_assets/uni-sans/Uni Sans Heavy.otf" id="6_tuyoq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i3pqv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqtel"]
+transparency = 1
+albedo_color = Color(0.5254902, 0.5254902, 0.5254902, 0.78431374)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sweqy"]
+size = Vector3(0.9, 0.9, 0.9)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dqkch"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlg0r"]
+bg_color = Color(2.7915835e-06, 0.7421639, 0.78781146, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=140477337 node_paths=PackedStringArray("spring_arm", "player_light", "dash_sfx_audio_player", "right_energy_bar", "left_energy_bar", "energy_label", "camera_raycast") groups=["player"]]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_3vyb7")
+bullet_scene = ExtResource("2_dqkch")
+temp_sound_scene = ExtResource("3_qlg0r")
+spring_arm = NodePath("camera_pivot/SpringArm3D")
+player_light = NodePath("camera_pivot/OmniLight3D")
+dash_sfx_audio_player = NodePath("dash_sould")
+right_energy_bar = NodePath("right")
+left_energy_bar = NodePath("left")
+energy_label = NodePath("energy lable")
+camera_raycast = NodePath("camera_pivot/SpringArm3D/camera/RayCast3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2025985089]
+shape = SubResource("BoxShape3D_onrkg")
+
+[node name="Player_mesh" type="MeshInstance3D" parent="." unique_id=1985306397]
+
+[node name="outter box" type="MeshInstance3D" parent="Player_mesh" unique_id=2136088482]
+mesh = SubResource("BoxMesh_i3pqv")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_hqtel")
+
+[node name="inner_box" type="MeshInstance3D" parent="Player_mesh" unique_id=2093399312]
+mesh = SubResource("BoxMesh_sweqy")
+skeleton = NodePath("../outter box")
+
+[node name="camera_pivot" type="Node3D" parent="." unique_id=1113499944 node_paths=PackedStringArray("player", "spring_arm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+script = ExtResource("2_g2els")
+player = NodePath("..")
+spring_arm = NodePath("SpringArm3D")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="camera_pivot" unique_id=921416198]
+collision_mask = 2
+spring_length = 3.5
+
+[node name="camera" type="Camera3D" parent="camera_pivot/SpringArm3D" unique_id=1952782044]
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="camera_pivot/SpringArm3D/camera" unique_id=1351266215]
+target_position = Vector3(0, 0, -50)
+collision_mask = 3
+
+[node name="OmniLight3D" type="OmniLight3D" parent="camera_pivot" unique_id=69911857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1318865, 0)
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 0.0
+
+[node name="dash_sould" type="AudioStreamPlayer3D" parent="." unique_id=2145720906]
+stream = ExtResource("3_qhqgy")
+
+[node name="right" type="ProgressBar" parent="." unique_id=1524069712]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.96666664
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_dqkch")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qlg0r")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="left" type="ProgressBar" parent="." unique_id=1435088842]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.96666664
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_right = -640.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_dqkch")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qlg0r")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="energy lable" type="Label" parent="." unique_id=1322113849]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_tuyoq")
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1

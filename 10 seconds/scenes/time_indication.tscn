@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://duykwlfblt35v"]
+
+[ext_resource type="Script" uid="uid://c5k8j5ef2mx1v" path="res://scripts/time_indication.gd" id="1_yock0"]
+[ext_resource type="FontFile" uid="uid://cu2u0kc477ne3" path="res://other_assets/uni-sans/Uni Sans Heavy Italic.otf" id="2_jlyed"]
+
+[sub_resource type="Animation" id="Animation_w0s3c"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.6333333, -0.017304182),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(12, -0.25, 0, 0, 11.96409),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-20, -0.25, 0, 0.06666667, -22.081707),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_7nhgl"]
+resource_name = "indication"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(1, 0, 0, 0.16666667, -0.16666667, 0, -0.03333336, 0.6483216, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 2),
+"points": PackedFloat32Array(12, 0, 0, 0.016666668, 2, 24, -0.05, 0, 0, 0, 24, 0, 0, 0.333, 0, 12, -0.06666666, 8.06089, 0, 0),
+"times": PackedFloat32Array(0, 0.1, 0.4, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(-20, 0, 0, 0.16666667, -6.666667, -60, -0.73333335, 0.11969757, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aal3w"]
+_data = {
+&"RESET": SubResource("Animation_w0s3c"),
+&"indication": SubResource("Animation_7nhgl")
+}
+
+[node name="time_indication" type="Control" unique_id=1931823431 node_paths=PackedStringArray("audiostream", "animation_player", "text_label")]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yock0")
+color = Color(1, 1, 1, 0)
+audiostream = NodePath("AudioStreamPlayer")
+animation_player = NodePath("animation")
+text_label = NodePath("Label")
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=602395746]
+libraries/ = SubResource("AnimationLibrary_aal3w")
+
+[node name="Label" type="Label" parent="." unique_id=235925813]
+layout_mode = 0
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+pivot_offset = Vector2(35, 20)
+theme_override_fonts/font = ExtResource("2_jlyed")
+theme_override_font_sizes/font_size = 12
+text = "-1s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1971940298]

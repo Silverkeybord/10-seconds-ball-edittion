@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b8o54t2425o0c"]
+
+[ext_resource type="Script" uid="uid://blm376uhh6euq" path="res://scripts/temp_sound.gd" id="1_e0lgo"]
+
+[node name="Temp_sound" type="AudioStreamPlayer3D" unique_id=510502246]
+script = ExtResource("1_e0lgo")

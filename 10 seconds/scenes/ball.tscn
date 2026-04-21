@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://co3mr7q8p5y3n"]
+
+[ext_resource type="Script" uid="uid://nvnujla7j0wc" path="res://scripts/ball.gd" id="1_7s4qf"]
+[ext_resource type="PackedScene" uid="uid://duykwlfblt35v" path="res://scenes/time_indication.tscn" id="2_cxlvu"]
+[ext_resource type="PackedScene" uid="uid://b8o54t2425o0c" path="res://scenes/temp_sound.tscn" id="3_f7cbr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n1dj2"]
+radius = 0.75
+
+[sub_resource type="SphereMesh" id="SphereMesh_7s4qf"]
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxlvu"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.19607843)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 1.26
+
+[sub_resource type="SphereMesh" id="SphereMesh_f7cbr"]
+radius = 0.6
+height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dx81"]
+albedo_color = Color(0.85882354, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7s4qf"]
+radius = 1.0
+
+[node name="ball" type="CharacterBody3D" unique_id=1568509479 node_paths=PackedStringArray("attack_timer", "inner_ball", "hit_sound")]
+script = ExtResource("1_7s4qf")
+time_deduction_scene = ExtResource("2_cxlvu")
+temp_sound_scene = ExtResource("3_f7cbr")
+attack_timer = NodePath("attack_timer")
+inner_ball = NodePath("ball_mesh/inner")
+hit_sound = NodePath("")
+metadata/enemy = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=593740426]
+shape = SubResource("SphereShape3D_n1dj2")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=787684368]
+light_color = Color(1, 0, 0, 1)
+
+[node name="ball_mesh" type="MeshInstance3D" parent="." unique_id=1678485179]
+
+[node name="outer" type="MeshInstance3D" parent="ball_mesh" unique_id=1885440053]
+mesh = SubResource("SphereMesh_7s4qf")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_cxlvu")
+
+[node name="inner" type="MeshInstance3D" parent="ball_mesh" unique_id=1614612660]
+mesh = SubResource("SphereMesh_f7cbr")
+skeleton = NodePath("../outer")
+surface_material_override/0 = SubResource("StandardMaterial3D_4dx81")
+
+[node name="front indicator" type="CSGBox3D" parent="." unique_id=1843622735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7252997)
+size = Vector3(0.5, 0.5, 1)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1223621317]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1130412008]
+shape = SubResource("SphereShape3D_7s4qf")
+
+[node name="jump_timer" type="Timer" parent="." unique_id=894966696]
+wait_time = 0.5
+autostart = true
+
+[node name="attack_timer" type="Timer" parent="." unique_id=1327532496]
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="jump_timer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

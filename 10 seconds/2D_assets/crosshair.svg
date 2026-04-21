@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Horizontal line -->
+  <rect x="4" y="30" width="22" height="4" fill="white"/>
+  <rect x="38" y="30" width="22" height="4" fill="white"/>
+  <!-- Vertical line -->
+  <rect x="30" y="4" width="4" height="22" fill="white"/>
+  <rect x="30" y="38" width="4" height="22" fill="white"/>
+  <!-- Center dot -->
+  <rect x="30" y="30" width="4" height="4" fill="white"/>
+</svg>

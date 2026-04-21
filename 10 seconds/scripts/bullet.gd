@@ -1,0 +1,29 @@
+extends CharacterBody3D
+
+const speed := 60.0
+const lifetime := 2.0
+
+var direction := Vector3.ZERO
+
+@export var damage := 2
+
+@export var fade_in_animation : AnimationPlayer
+
+
+func _ready() -> void:
+	if Global.first_person:
+		fade_in_animation.play("first_person_spawn_invisiblity")
+	await get_tree().create_timer(lifetime).timeout	
+	queue_free()
+
+
+func _physics_process(_delta: float) -> void:
+	velocity = direction * speed
+	move_and_slide()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.has_meta("enemy"):
+		body.health -= damage
+		body.hit()
+		queue_free()
