@@ -64,7 +64,6 @@ shape = SubResource("BoxShape3D_y25gk")
 disabled = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=587213944]
-light_energy = 2.5
 omni_range = 1.0
 
 [node name="fade_in_animation" type="AnimationPlayer" parent="." unique_id=1610891321]

@@ -3,7 +3,8 @@ extends Control
 const starting_time = 10.0
 
 const GOLD_BACKGROUND_TIME_SCALE := Vector2(1.4, 1.4)
-const SECONDS_TEXT := " SECONDS"
+const SECONDS_TEXT := " seconds"
+const COST_TEST := "cost: "
 
 const GOLD_SHAKE_OFFSET := 18
 const PURPLE_SHAKE_OFFSET := 10
@@ -41,6 +42,7 @@ var shake_offset := PURPLE_SHAKE_OFFSET
 @export var crosshair : TextureRect
 @export var animation : AnimationPlayer
 @export var you_survived_time : Label
+@export var shop_button : Button
 
 @onready var message := preload("res://sounds/you have 10 seconds(1).WAV")
 
@@ -60,11 +62,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if not Global.dead:
-		Global.time = max(0, round((Global.time - delta) * 100) / 100)
+		Global.time = max(0, Global.time - delta)
 		Global.run_time += delta
 	
-	time.text = str(Global.time)
-	background_time.text = str(Global.time)
+	time.text = str(snapped(Global.time, 0.01))
+	background_time.text = time.text
 	
 	_background_time_shake()
 	_time_color_changes()
@@ -138,6 +140,25 @@ func _on_try_again_pressed() -> void:
 	player.position = Vector3.UP
 	Global.time = starting_time
 	Global.run_time = 0
+	Global.ongoing_run = true
+	
 	await animation.animation_finished
 	Global._lock_mouse_movement()
 	Global.dead = false
+
+
+func _on_shop_button_pressed() -> void:
+	if Global.unlocked_shop:
+		animation.play("open_shop")
+		
+	else:
+		if Global.seconds >= Global.shop_unlock_remaining_cost:
+			Global.seconds -= Global.shop_unlock_remaining_cost
+			Global.shop_unlock_remaining_cost = 0
+			Global.unlocked_shop = true
+			shop_button.text = "time exchange?"
+			
+		else:
+			Global.shop_unlock_remaining_cost -= Global.seconds
+			Global.seconds = 0
+			shop_button.text = COST_TEST + str(Global.shop_unlock_remaining_cost) + SECONDS_TEXT

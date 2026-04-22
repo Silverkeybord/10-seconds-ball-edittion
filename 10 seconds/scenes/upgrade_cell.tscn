@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://c0fbswxvyjyso"]
+
+[ext_resource type="FontFile" uid="uid://be0hbn8l35v7p" path="res://other_assets/uni-sans/Uni Sans Heavy.otf" id="1_7mt3t"]
+[ext_resource type="Script" uid="uid://b6pwjb1ihcgv6" path="res://scenes/upgrade_cell.gd" id="1_vykn3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dvkv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.50928634, 0.5092861, 0.50928617, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.27450982, 0.27450982, 0.27450982, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="upgrade_cell" type="PanelContainer" unique_id=1496350727 node_paths=PackedStringArray("upgrade_name_label", "cost_label", "value_label", "exchange_button")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_7dvkv")
+script = ExtResource("1_vykn3")
+upgrade_name_label = NodePath("HBoxContainer/VBoxContainer/upgrade_name")
+cost_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/cost")
+value_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/value")
+exchange_button = NodePath("HBoxContainer/exchange")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1732388337]
+layout_mode = 2
+
+[node name="exchange" type="Button" parent="HBoxContainer" unique_id=811439993]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+focus_behavior_recursive = 1
+theme_override_fonts/font = ExtResource("1_7mt3t")
+text = "Exchange"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=709729160]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="upgrade_name" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=1805397728]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_7mt3t")
+text = "upgrade_name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer" unique_id=229785849]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=356826414]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="cost" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=582949120]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_7mt3t")
+text = "cost"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=630254665]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_7mt3t")
+text = "value"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/exchange" to="." method="_on_exchange_pressed"]

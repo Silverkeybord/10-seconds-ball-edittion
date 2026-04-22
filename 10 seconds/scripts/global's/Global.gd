@@ -10,7 +10,88 @@ enum ENEMY_ENUMS {
 	ORANGE
 }
 
-const ENEMY_INFO = {
+const SAVE_PATH := "user://10_seconds_3D.save"
+
+const SHOP_INFO = {
+	"damage" : {
+		"cost" : {
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		},
+		"value" : {
+			"0" : 0,
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		}
+	},
+	"reload" : {
+		"cost" : {
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		},
+		"value" : {
+			"0" : 0,
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		}
+	},
+	"jump_height" : {
+		"cost" : {
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		},
+		"value" : {
+			"0" : 0,
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		}
+	},
+	"dash_energy_reduction" : {
+		"cost" : {
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		},
+		"value" : {
+			"0" : 0,
+			"1" : 0,
+			"2" : 0,
+			"3" : 0,
+			"4" : 0,
+			"5" : 0,
+			"6" : 0,
+		}
+	}
+}
+
+const ENEMY_INFO := {
 	# if no value is provided default is used in the ball script
 	# speed := 5
 	# health := 10
@@ -33,7 +114,7 @@ const ENEMY_INFO = {
 		"jump_speed_boost" : 30,
 		"jump_strength" : 7,
 		"normal_speed" : 5,
-		"random_jump_chance" : 4,
+		"random_jump_chance" : 6,
 		"jump_speed_decelleration" : 30
 	},
 	"cyan" : { # speed
@@ -74,7 +155,7 @@ const ENEMY_INFO = {
 		"time_reward" : 3,
 	},
 }
-const DIFFICULTY_SPAWN_RATES = {
+const DIFFICULTY_SPAWN_RATES := {
 	"1" : {
 		"red" : 1,
 		"yellow" : 0,
@@ -112,7 +193,7 @@ const DIFFICULTY_SPAWN_RATES = {
 		"green" : 0 
 	},
 }
-const ENEMY_TYPES = {
+const ENEMY_TYPES := {
 	"red" : ENEMY_ENUMS.RED,
 	"yellow" : ENEMY_ENUMS.YELLOW,
 	"cyan" : ENEMY_ENUMS.CYAN,
@@ -121,17 +202,24 @@ const ENEMY_TYPES = {
 	"purple" : ENEMY_ENUMS.PURPLE,
 	"green" : ENEMY_ENUMS.GREEN
 }
-const DIFFICULTY_TIME_STEPS = [10, 30, 60]
+const DIFFICULTY_TIME_STEPS := [10, 30, 60]
+
+var dead := true
+var shop_open := false
+var ongoing_run := false
+var first_person := false
 
 var enemies := 0
 var time := 10.0
 var run_time := 0.0
-var seconds := 0
-var first_person := false
-var dead := true
-var time_shards := 0
 var difficulty := 1
+
+# save varibles
+var seconds := 0
 var highest_difficulty := 1
+var shop_unlock_remaining_cost := 50
+
+var unlocked_shop := false
 
 
 func spawn_temp_sound(sound : AudioStream, temp_sound_scene : PackedScene, 
@@ -143,8 +231,44 @@ func spawn_temp_sound(sound : AudioStream, temp_sound_scene : PackedScene,
 
 
 func _lock_mouse_movement() -> void:
+	if not ongoing_run:
+		return
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _unlock_mouse_movement() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _save_game() -> void:
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	
+	var save_data = {
+		#currency
+		"seconds" : seconds,
+		
+		#other
+		"highest_difficulty" : highest_difficulty,
+		
+		#shop related
+		"shop_unlock_remaining_cost" : shop_unlock_remaining_cost,
+		"unlocked_shop" : unlocked_shop
+	}
+	
+	file.store_var(save_data)
+
+
+func load_game():
+	if !FileAccess.file_exists(SAVE_PATH):
+		return
+	
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var data = file.get_var()
+	
+	seconds = data["seconds"]
+	
+	highest_difficulty = data["highest_difficulty"]
+	
+	shop_unlock_remaining_cost = data["shop_unlock_remaining_cost"]
+	unlocked_shop = data["unlocked_shop"]

@@ -14,12 +14,12 @@ const JUMP_VELOCITY := 4.5
 const SHOOT_SOUND := preload("res://sounds/shoot_sound.WAV")
 
 # light constraintes
-const RANGE_MIN := 10.0
+const RANGE_MIN := 5.0
 const RANGE_MAX := 30.0
 const RANGE_CURVE := 100.0
 const RANGE_THRESHOLD := 10.0
 
-const ENERGY_MIN := 5.0
+const ENERGY_MIN := 2.5
 const ENERGY_MAX := 10.0
 const ENERGY_CURVE := 150.0
 const ENERGY_THRESHOLD := 20.0
@@ -35,7 +35,7 @@ var energy := 100.0
 
 @export_group("in scene exports")
 @export var spring_arm : SpringArm3D
-@export var shoot_cooldown : float = 0.2
+@export var shoot_cooldown : float = 0.4
 @export var player_light : OmniLight3D
 @export var dash_sfx_audio_player : AudioStreamPlayer3D
 @export var right_energy_bar : ProgressBar

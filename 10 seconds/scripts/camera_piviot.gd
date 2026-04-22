@@ -9,11 +9,11 @@ const MIN_ZOOM := 0.0
 
 const FIRST_PERSON_THRESHOLD := 0.5
 const TP_X_CAMERA_OFFSET := 0.75
-const TP_Y_CAMERA_OFFSET := 0.75
+const TP_Y_CAMERA_OFFSET := 1.1
 
 var pitch := 0.0
 
-@export var sensitivity := 0.003
+@export var sensitivity := 0.003	
 @export var player : CharacterBody3D
 @export var spring_arm : SpringArm3D
 

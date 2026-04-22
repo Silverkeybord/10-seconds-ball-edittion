@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://broifprc7ce7r" path="res://sounds/alot of time.WAV" id="3_yev5y"]
 [ext_resource type="FontFile" uid="uid://cu2u0kc477ne3" path="res://other_assets/uni-sans/Uni Sans Heavy Italic.otf" id="4_8dubc"]
 [ext_resource type="AudioStream" uid="uid://lkbmmh3sdc68" path="res://sounds/lose.wav" id="4_gdt2y"]
+[ext_resource type="Texture2D" uid="uid://c2kun0oieh1rw" path="res://2D_assets/shop_divider.png" id="5_p7vwb"]
+[ext_resource type="PackedScene" uid="uid://c0fbswxvyjyso" path="res://scenes/upgrade_cell.tscn" id="6_ktti3"]
 
 [sub_resource type="Animation" id="Animation_x4jx1"]
 length = 0.001
@@ -418,7 +420,29 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yev5y"]
 draw_center = false
 
-[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "alot_of_time_sound", "end_run_sound", "crosshair", "animation", "you_survived_time")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7vwb"]
+content_margin_left = 200.0
+content_margin_top = 100.0
+content_margin_right = 200.0
+content_margin_bottom = 100.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktti3"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.5783495, 0.57834953, 0.5783495, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgfq5"]
+content_margin_top = 10.0
+draw_center = false
+
+[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "alot_of_time_sound", "end_run_sound", "crosshair", "animation", "you_survived_time", "shop_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -433,6 +457,7 @@ end_run_sound = NodePath("end run")
 crosshair = NodePath("Crosshair")
 animation = NodePath("AnimationPlayer")
 you_survived_time = NodePath("you_survived/VBoxContainer/you_survived_time")
+shop_button = NodePath("try_again_or_leave/VBoxContainer/shop_button")
 
 [node name="background_time" type="Label" parent="." unique_id=47922032]
 modulate = Color(1, 1, 1, 0.23529412)
@@ -463,7 +488,7 @@ anchor_bottom = 0.9297457
 offset_left = 2838.0
 offset_top = -538.9724
 offset_right = 2838.0032
-offset_bottom = -537.4167
+offset_bottom = -537.41675
 grow_horizontal = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
@@ -514,16 +539,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8dubc")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="intro" unique_id=1512273987]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="intro/VBoxContainer" unique_id=742692388]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="YOU" type="Label" parent="intro/VBoxContainer/HBoxContainer" unique_id=354567201]
 modulate = Color(1, 1, 1, 0)
@@ -531,6 +559,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 64
 text = "YOU"
+metadata/_edit_lock_ = true
 
 [node name="HAVE" type="Label" parent="intro/VBoxContainer/HBoxContainer" unique_id=1667197850]
 modulate = Color(1, 1, 1, 0)
@@ -538,11 +567,13 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 64
 text = "HAVE"
+metadata/_edit_lock_ = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="intro/VBoxContainer" unique_id=81114698]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="10" type="Label" parent="intro/VBoxContainer/HBoxContainer2" unique_id=1368055622]
 modulate = Color(1, 1, 1, 0)
@@ -552,6 +583,7 @@ theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 128
 text = "10"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="seconds" type="Label" parent="intro/VBoxContainer/HBoxContainer2" unique_id=1347114907]
 modulate = Color(1, 1, 1, 0)
@@ -561,6 +593,7 @@ theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 128
 text = "seconds"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="you_survived" type="PanelContainer" parent="." unique_id=2032055023]
 modulate = Color(1, 1, 1, 0)
@@ -647,6 +680,70 @@ text = "LEAVE"
 flat = true
 metadata/_edit_lock_ = true
 
+[node name="shop_button" type="Button" parent="try_again_or_leave/VBoxContainer" unique_id=1902679420]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 24
+text = "Cost: 50 seconds"
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="shop" type="PanelContainer" parent="." unique_id=733321497]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p7vwb")
+
+[node name="PanelContainer" type="PanelContainer" parent="shop" unique_id=1090935492]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ktti3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="shop/PanelContainer" unique_id=1613651609]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="shop/PanelContainer/VBoxContainer" unique_id=2017640546]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 64
+text = "time exchange"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShopDivider" type="TextureRect" parent="shop/PanelContainer/VBoxContainer" unique_id=721369303]
+modulate = Color(0.5251013, 0.5251013, 0.5251013, 1)
+layout_mode = 2
+texture = ExtResource("5_p7vwb")
+
+[node name="PanelContainer" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer" unique_id=1080691823]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_cgfq5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer" unique_id=36251184]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="normal_upgrades" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1564985996]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="upgrade_cell" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/normal_upgrades" unique_id=1496350727 instance=ExtResource("6_ktti3")]
+layout_mode = 2
+
+[node name="skills" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=65431210]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/skills" unique_id=1639369941]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="alot of time" type="AudioStreamPlayer" parent="." unique_id=1899103215]
 stream = ExtResource("3_yev5y")
 
@@ -655,3 +752,4 @@ stream = ExtResource("4_gdt2y")
 
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/try_again" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/leave" to="." method="_on_leave_pressed"]
+[connection signal="pressed" from="try_again_or_leave/VBoxContainer/shop_button" to="." method="_on_shop_button_pressed"]
