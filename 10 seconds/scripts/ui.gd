@@ -3,12 +3,12 @@ extends Control
 const starting_time = 10.0
 
 const GOLD_BACKGROUND_TIME_SCALE := Vector2(1.4, 1.4)
+const SECONDS_TEXT := " SECONDS"
 
 const GOLD_SHAKE_OFFSET := 18
 const PURPLE_SHAKE_OFFSET := 10
 const GOLD_ROTATION_OFFET = PI/12
 const PURPLE_ROTATION_OFFSET = PI/18
-
 
 const GOLD := Color(0.909, 0.777, 0.0, 1.0)
 const PURPLE := Color(0.941, 0.598, 1.0, 1.0)
@@ -40,12 +40,28 @@ var shake_offset := PURPLE_SHAKE_OFFSET
 @export var end_run_sound: AudioStreamPlayer
 @export var crosshair : TextureRect
 @export var animation : AnimationPlayer
+@export var you_survived_time : Label
+
+@onready var message := preload("res://sounds/you have 10 seconds(1).WAV")
+
+
+func _ready() -> void:
+	animation.play("intro")
+	await get_tree().process_frame
+	var intro_message = AudioStreamPlayer.new()
+	intro_message.stream = message
+	add_sibling(intro_message)
+	intro_message.play()
+	await intro_message.finished
+	intro_message.queue_free()
+	
+	Global.dead = false
 
 
 func _process(delta: float) -> void:
 	if not Global.dead:
 		Global.time = max(0, round((Global.time - delta) * 100) / 100)
-		
+		Global.run_time += delta
 	
 	time.text = str(Global.time)
 	background_time.text = str(Global.time)
@@ -104,6 +120,9 @@ func _background_time_shake() -> void:
 
 func end_run() -> void:
 	end_run_sound.play()
+	Global.seconds += round(Global.run_time)
+	you_survived_time.text = str(round(Global.run_time * 10) / 10) + SECONDS_TEXT
+	
 	animation.play("end_run")
 	await animation.animation_finished
 	Global._unlock_mouse_movement()
@@ -115,8 +134,10 @@ func _on_leave_pressed() -> void:
 
 func _on_try_again_pressed() -> void:
 	animation.play("new_run")
+	var player = get_tree().get_first_node_in_group("player")
+	player.position = Vector3.UP
 	Global.time = starting_time
+	Global.run_time = 0
 	await animation.animation_finished
 	Global._lock_mouse_movement()
 	Global.dead = false
-	

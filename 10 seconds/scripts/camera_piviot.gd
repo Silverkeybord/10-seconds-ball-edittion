@@ -1,7 +1,7 @@
 extends Node3D
 
-const MIN_ROT : float = -0.95
-const MAX_ROT : float = 0.95
+const MIN_ROT : float = -0.99
+const MAX_ROT : float = 0.99
 
 const ZOOM_SPEED := 0.3
 const MAX_ZOOM := 10.0
@@ -45,4 +45,3 @@ func _input(event):
 		Global.first_person = false
 		position.x = TP_X_CAMERA_OFFSET
 		position.y = TP_Y_CAMERA_OFFSET
-		

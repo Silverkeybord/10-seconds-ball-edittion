@@ -21,6 +21,20 @@ func _on_spawn_timer_timeout() -> void:
 	var new_ball = ball_scene.instantiate()
 	new_ball.position = random_spawn_pos()
 	new_ball.add_to_group("enemys")
+	
+	var val = randf()
+	var add := 0.0
+	var type : String
+	var probilities = Global.DIFFICULTY_SPAWN_RATES[str(Global.difficulty)]
+	for x in probilities:
+		add += probilities[x]
+		if val <= add:
+			type = x
+			break
+	
+	new_ball.string_type = type
+	new_ball.enum_type = Global.ENEMY_TYPES[type]
+	
 	add_child(new_ball)
 	Global.enemies += 1
 

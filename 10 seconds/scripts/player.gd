@@ -5,21 +5,21 @@ const ENERGY_REGEN := 5
 const SLASH := " / "
 
 const DASH_ENERGY_COST := 30
-const DASH_SPEED = 50.0
-const DASH_DURATION = 0.2
+const DASH_SPEED := 50.0
+const DASH_DURATION := 0.2
 
-const NORMAL_SPEED = 10.0
-const JUMP_VELOCITY = 4.5
+const NORMAL_SPEED := 10.0
+const JUMP_VELOCITY := 4.5
 
 const SHOOT_SOUND := preload("res://sounds/shoot_sound.WAV")
 
 # light constraintes
-const RANGE_MIN := 5.0
+const RANGE_MIN := 10.0
 const RANGE_MAX := 30.0
 const RANGE_CURVE := 100.0
 const RANGE_THRESHOLD := 10.0
 
-const ENERGY_MIN := 1.0
+const ENERGY_MIN := 5.0
 const ENERGY_MAX := 10.0
 const ENERGY_CURVE := 150.0
 const ENERGY_THRESHOLD := 20.0
@@ -35,25 +35,13 @@ var energy := 100.0
 
 @export_group("in scene exports")
 @export var spring_arm : SpringArm3D
-@export var shoot_cooldown : float = 0.1
+@export var shoot_cooldown : float = 0.2
 @export var player_light : OmniLight3D
 @export var dash_sfx_audio_player : AudioStreamPlayer3D
 @export var right_energy_bar : ProgressBar
 @export var left_energy_bar : ProgressBar
 @export var energy_label : Label
 @export var camera_raycast : RayCast3D
-
-@onready var message = preload("res://sounds/you have 10 seconds.WAV")
-
-
-func _ready() -> void:
-	await get_tree().process_frame
-	var intro_message = AudioStreamPlayer.new()
-	intro_message.stream = message
-	add_sibling(intro_message)
-	intro_message.play()
-	await intro_message.finished
-	intro_message.queue_free()
 
 
 func _physics_process(delta: float) -> void:

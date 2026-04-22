@@ -17,13 +17,13 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer/VBoxContainer/try_again:disabled")
+tracks/1/path = NodePath("try_again_or_leave/VBoxContainer/try_again:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -35,7 +35,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PanelContainer/VBoxContainer/leave:disabled")
+tracks/2/path = NodePath("try_again_or_leave/VBoxContainer/leave:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -47,7 +47,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PanelContainer:modulate:a")
+tracks/3/path = NodePath("try_again_or_leave:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -58,7 +58,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PanelContainer:position:y")
+tracks/4/path = NodePath("try_again_or_leave:position:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -99,10 +99,76 @@ tracks/7/keys = {
 "points": PackedFloat32Array(5.9999995, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("you_survived:modulate:a")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("you_survived:position:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("intro/VBoxContainer/HBoxContainer/YOU:modulate:a")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("intro/VBoxContainer/HBoxContainer/HAVE:modulate:a")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("intro/VBoxContainer/HBoxContainer2/10:modulate:a")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("intro/VBoxContainer/HBoxContainer2/seconds:modulate:a")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_yev5y"]
 resource_name = "end_run"
-length = 2.0
+length = 4.5
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -117,11 +183,11 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer/VBoxContainer/try_again:disabled")
+tracks/1/path = NodePath("try_again_or_leave/VBoxContainer/try_again:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 4.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -129,11 +195,11 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PanelContainer/VBoxContainer/leave:disabled")
+tracks/2/path = NodePath("try_again_or_leave/VBoxContainer/leave:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 4.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -141,24 +207,24 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PanelContainer:modulate:a")
+tracks/3/path = NodePath("try_again_or_leave:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 2),
+"handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.5140351, 0.0042935363, 1, -0.5526316, -0.001691401, 0, 0),
-"times": PackedFloat32Array(1, 2)
+"times": PackedFloat32Array(3.5, 4.5)
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PanelContainer:position:y")
+tracks/4/path = NodePath("try_again_or_leave:position:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"handle_modes": PackedInt32Array(0, 2),
+"handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(100, -0.25, 0, 0.28070176, -68.605255, 0, -0.33333334, 0, 0, 0),
-"times": PackedFloat32Array(1, 2)
+"times": PackedFloat32Array(3.5, 4.5)
 }
 tracks/5/type = "bezier"
 tracks/5/imported = false
@@ -167,7 +233,7 @@ tracks/5/path = NodePath("time:scale:x")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 2, 0),
+"handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0, 3, 5.445, -0.5, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
 }
@@ -178,7 +244,7 @@ tracks/6/path = NodePath("time:scale:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"handle_modes": PackedInt32Array(0, 2, 0),
+"handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0, 3, 5.445, -0.5, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
 }
@@ -192,6 +258,87 @@ tracks/7/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(5.9999995, 0, 0, 0, 297, 297, -0.16666667, 0, 0, 0, 5.9999995, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1, 2)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("you_survived:modulate:a")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(2, 2, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.2, 0.4, 1, -0.2, 0, 0.2, 0, 1, -0.2, 0, 0.2, 0, 0, -0.2, 0.4, 0, 0),
+"times": PackedFloat32Array(1, 2, 2.5, 3.5)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("you_survived:position:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 0),
+"points": PackedFloat32Array(100, 0, 0, 0.5, 0, 0, -0.5, 0, 0.5, 0, 0, -0.5, 0, 0.5, 0, -100, -0.5, 0, 0, 0),
+"times": PackedFloat32Array(1, 2, 2.5, 3.5)
+}
+
+[sub_resource type="Animation" id="Animation_8dubc"]
+resource_name = "intro"
+length = 3.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("intro/VBoxContainer/HBoxContainer/YOU:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0, 0.99492556, 1, 0, 0, 0, 0, 1, 0, 0, 0.1, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667, 3.3, 3.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("intro/VBoxContainer/HBoxContainer/HAVE:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0.1, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0.4, 0.66, 3.3, 3.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("intro/VBoxContainer/HBoxContainer2/10:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.1, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(1.3, 1.5, 3.3, 3.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("intro/VBoxContainer/HBoxContainer2/seconds:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.1, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(2.3, 2.5, 3.3, 3.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("black_cover:color:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(3.2, 3.5)
 }
 
 [sub_resource type="Animation" id="Animation_wm3ai"]
@@ -211,7 +358,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer/VBoxContainer/try_again:disabled")
+tracks/1/path = NodePath("try_again_or_leave/VBoxContainer/try_again:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -223,7 +370,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PanelContainer/VBoxContainer/leave:disabled")
+tracks/2/path = NodePath("try_again_or_leave/VBoxContainer/leave:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -235,7 +382,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PanelContainer:modulate:a")
+tracks/3/path = NodePath("try_again_or_leave:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -246,7 +393,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PanelContainer:position:y")
+tracks/4/path = NodePath("try_again_or_leave:position:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -259,13 +406,19 @@ tracks/4/keys = {
 _data = {
 &"RESET": SubResource("Animation_x4jx1"),
 &"end_run": SubResource("Animation_yev5y"),
+&"intro": SubResource("Animation_8dubc"),
 &"new_run": SubResource("Animation_wm3ai")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8dubc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8dubc"]
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yev5y"]
 draw_center = false
 
-[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "alot_of_time_sound", "end_run_sound", "crosshair", "animation")]
+[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "alot_of_time_sound", "end_run_sound", "crosshair", "animation", "you_survived_time")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,6 +432,7 @@ alot_of_time_sound = NodePath("alot of time")
 end_run_sound = NodePath("end run")
 crosshair = NodePath("Crosshair")
 animation = NodePath("AnimationPlayer")
+you_survived_time = NodePath("you_survived/VBoxContainer/you_survived_time")
 
 [node name="background_time" type="Label" parent="." unique_id=47922032]
 modulate = Color(1, 1, 1, 0.23529412)
@@ -309,7 +463,7 @@ anchor_bottom = 0.9297457
 offset_left = 2838.0
 offset_top = -538.9724
 offset_right = 2838.0032
-offset_bottom = -537.41675
+offset_bottom = -537.4167
 grow_horizontal = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
@@ -348,9 +502,104 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=918026099]
+[node name="intro" type="PanelContainer" parent="." unique_id=424216633]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8dubc")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="intro" unique_id=1512273987]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="intro/VBoxContainer" unique_id=742692388]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="YOU" type="Label" parent="intro/VBoxContainer/HBoxContainer" unique_id=354567201]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 64
+text = "YOU"
+
+[node name="HAVE" type="Label" parent="intro/VBoxContainer/HBoxContainer" unique_id=1667197850]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 64
+text = "HAVE"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="intro/VBoxContainer" unique_id=81114698]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="10" type="Label" parent="intro/VBoxContainer/HBoxContainer2" unique_id=1368055622]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8331779, 0.0018558736, 0.0010174841, 1)
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 128
+text = "10"
+horizontal_alignment = 1
+
+[node name="seconds" type="Label" parent="intro/VBoxContainer/HBoxContainer2" unique_id=1347114907]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8331779, 0.0018558736, 0.0010174841, 1)
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 128
+text = "seconds"
+horizontal_alignment = 1
+
+[node name="you_survived" type="PanelContainer" parent="." unique_id=2032055023]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8dubc")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="you_survived" unique_id=2002800099]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="you_survived" type="Label" parent="you_survived/VBoxContainer" unique_id=696774327]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 32
+text = "YOU SURVIVED"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="you_survived_time" type="Label" parent="you_survived/VBoxContainer" unique_id=1608289767]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 128
+text = "1000 seconds"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="try_again_or_leave" type="PanelContainer" parent="." unique_id=918026099]
 modulate = Color(1, 1, 1, 0)
 z_index = 2
 layout_mode = 1
@@ -362,14 +611,15 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yev5y")
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=851691586]
+[node name="VBoxContainer" type="VBoxContainer" parent="try_again_or_leave" unique_id=851691586]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="try_again" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1894049152]
+[node name="try_again" type="Button" parent="try_again_or_leave/VBoxContainer" unique_id=1894049152]
 layout_mode = 2
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 64
 disabled = true
@@ -377,7 +627,7 @@ text = "Try Again?"
 flat = true
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1614515564]
+[node name="Label" type="Label" parent="try_again_or_leave/VBoxContainer" unique_id=1614515564]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_8dubc")
 theme_override_font_sizes/font_size = 32
@@ -386,9 +636,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="leave" type="Button" parent="PanelContainer/VBoxContainer" unique_id=337629648]
+[node name="leave" type="Button" parent="try_again_or_leave/VBoxContainer" unique_id=337629648]
 modulate = Color(0.50980395, 0, 0, 1)
 layout_mode = 2
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 48
 disabled = true
@@ -402,5 +653,5 @@ stream = ExtResource("3_yev5y")
 [node name="end run" type="AudioStreamPlayer" parent="." unique_id=941460615]
 stream = ExtResource("4_gdt2y")
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/try_again" to="." method="_on_try_again_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/leave" to="." method="_on_leave_pressed"]
+[connection signal="pressed" from="try_again_or_leave/VBoxContainer/try_again" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="try_again_or_leave/VBoxContainer/leave" to="." method="_on_leave_pressed"]

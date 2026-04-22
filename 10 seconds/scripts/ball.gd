@@ -1,13 +1,5 @@
 extends CharacterBody3D
 
-const GRAVITY_MULT := 1.4
-
-const NORMAL_SPEED : float = 5.0
-const RANDOM_JUMP_CHANCE := 10 # 1 in n chance of jumping every 0.5 seconds
-const JUMP_SPEED := 6.0
-const JUMP_SPEED_BOOST := 24.0
-const SPEED_BOOST_DECELLERATION := 0.25
-
 const MAX_DEDUCTION_POS := Vector2(990, 60)
 const MIN_DEDUCTION_POS := Vector2(290, 225)
 
@@ -22,23 +14,62 @@ var jumping := false
 var can_attack := false
 var attack_interval := 1.0
 
-@export var speed := NORMAL_SPEED
-@export var time_damage := -4
+var type_info : Dictionary
+
+@export_group("ball stats")
+@export var enum_type : int
+@export var string_type : String
+@export var speed := 5.0
 @export var health := 10
-@export var time_reward := 3
+@export var time_reward := 2.5
+@export var time_damage := -5
 @export var energy_reward := 5
 
-@export var time_deduction_scene : PackedScene
-@export var temp_sound_scene : PackedScene
+@export_group("in scene exports")
+@export_subgroup("general")
 @export var attack_timer : Timer
 @export var inner_ball : MeshInstance3D
-@export var hit_sound : AudioStreamPlayer3D
+@export var outer_ball : MeshInstance3D
+@export var light : OmniLight3D
+
+@export_subgroup("yellow")
+@export var jump_timer : Timer
+
+@export_group("out of scene")
+@export var time_deduction_scene : PackedScene
+@export var temp_sound_scene : PackedScene
 
 @onready var player = get_tree().get_first_node_in_group("player")
 
 
 func _ready() -> void:
-	attack_timer.wait_time = attack_interval
+	type_info = Global.ENEMY_INFO[string_type]
+	
+	inner_ball.set_surface_override_material(0, type_info["inner"])
+	outer_ball.set_surface_override_material(0, type_info["outer"])
+	light.light_color = type_info["light_color"]
+	
+	match enum_type:
+		Global.ENEMY_ENUMS.RED:
+			pass
+		Global.ENEMY_ENUMS.YELLOW:
+			jump_timer.start()
+			health = type_info["health"]
+			time_damage = type_info["time_damage"]
+			time_reward = type_info["time_reward"]
+		Global.ENEMY_ENUMS.CYAN:
+			speed = type_info["speed"]
+			health = type_info["health"]
+			time_damage = type_info["time_damage"]
+			time_reward = type_info["time_reward"]
+		Global.ENEMY_ENUMS.ORANGE:
+			pass
+		Global.ENEMY_ENUMS.BLUE:
+			pass
+		Global.ENEMY_ENUMS.PURPLE:
+			pass
+		Global.ENEMY_ENUMS.GREEN:
+			pass
 
 
 func _process(delta: float) -> void:
@@ -50,29 +81,30 @@ func _process(delta: float) -> void:
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
 	
-	look_at(player.global_position)
+	
+	match enum_type:
+		Global.ENEMY_ENUMS.RED:
+			pass
+			
+		Global.ENEMY_ENUMS.YELLOW:
+			if speed != type_info["normal_speed"]:
+				speed -= type_info["jump_speed_decelleration"] * delta
+				
+				if speed <= type_info["normal_speed"]:
+					speed = type_info["normal_speed"]
+			
+		Global.ENEMY_ENUMS.CYAN:
+			pass
+		Global.ENEMY_ENUMS.ORANGE:
+			pass
+		Global.ENEMY_ENUMS.BLUE:
+			pass
+		Global.ENEMY_ENUMS.PURPLE:
+			pass
+		Global.ENEMY_ENUMS.GREEN:
+			pass
 	
 	move_and_slide()
-	
-	if speed >= NORMAL_SPEED:
-		speed -= SPEED_BOOST_DECELLERATION
-		
-		if speed <= NORMAL_SPEED:
-			speed = NORMAL_SPEED
-
-
-func _on_jump_timer_timeout() -> void:
-	if jumping:
-		jumping = false
-		return
-	
-	var val = randi_range(1, RANDOM_JUMP_CHANCE)
-	
-	if val == RANDOM_JUMP_CHANCE:
-		Global.spawn_temp_sound(JUMP_SOUND, temp_sound_scene, position, self)
-		jumping = true
-		velocity.y = JUMP_SPEED
-		speed = JUMP_SPEED_BOOST
 
 
 # ATTACKING LOGIC ------------------------------------------------------------
@@ -110,7 +142,22 @@ func hit() -> void:
 	Global.spawn_temp_sound(POSSIBLE_HIT_SOUNDS.pick_random(), temp_sound_scene, position, self)
 	if health <= 0:
 		Global.spawn_temp_sound(DEATH_SOUND, temp_sound_scene, position, self)
-		_spawn_time_deduction(Color(1.0, 1.0, 1.0, 1.0), time_reward)
+		_spawn_time_deduction(Color.BLACK, time_reward)
 		Global.enemies -= 1
 		player.energy += energy_reward
 		queue_free()
+
+
+# YELLOW JUMPING -------------------------------------------------------------
+func _on_jump_timer_timeout() -> void:
+	if jumping:
+		jumping = false
+		return
+	
+	var val = randi_range(1, type_info["random_jump_chance"])
+	
+	if val == type_info["random_jump_chance"]:
+		Global.spawn_temp_sound(JUMP_SOUND, temp_sound_scene, position, self)
+		jumping = true
+		velocity.y = type_info["jump_strength"]
+		speed = type_info["jump_speed_boost"]

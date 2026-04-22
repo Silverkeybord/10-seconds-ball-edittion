@@ -26,6 +26,7 @@ Global="*uid://dbubegmvi8nrv"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [file_customization]
@@ -37,7 +38,7 @@ folder_colors={
 "res://scenes/": "blue",
 "res://scripts/": "gray",
 "res://sounds/": "green",
-"res://textures/": "yellow"
+"res://textures_and_materials/": "yellow"
 }
 
 [global_group]
