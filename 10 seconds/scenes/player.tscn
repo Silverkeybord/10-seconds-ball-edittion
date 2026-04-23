@@ -59,7 +59,7 @@ spring_arm = NodePath("SpringArm3D")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="camera_pivot" unique_id=921416198]
 collision_mask = 2
-spring_length = 3.5
+spring_length = 7.5
 
 [node name="camera" type="Camera3D" parent="camera_pivot/SpringArm3D" unique_id=1952782044]
 current = true

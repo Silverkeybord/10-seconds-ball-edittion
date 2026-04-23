@@ -15,82 +15,188 @@ const SAVE_PATH := "user://10_seconds_3D.save"
 const SHOP_INFO = {
 	"damage" : {
 		"cost" : {
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
+			"0" : 20,
+			"1" : 30,
+			"2" : 50,
+			"3" : 75,
+			"4" : 120,
+			"5" : 200,
 		},
 		"value" : {
-			"0" : 0,
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
-		}
+			"0" : 1,
+			"1" : 2,
+			"2" : 3,
+			"3" : 4,
+			"4" : 5,
+			"5" : 8,
+			"6" : 10,
+		},
+		"levels" : 6,
+		"required_difficulty" : 0
 	},
+	#############################################################################################
 	"reload" : {
 		"cost" : {
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
+			"0" : 25,
+			"1" : 50,
+			"2" : 75,
+			"3" : 100,
+			"4" : 150,
+			"5" : 200,
 		},
 		"value" : {
-			"0" : 0,
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
-		}
+			"0" : 0.5,
+			"1" : 0.4,
+			"2" : 0.3,
+			"3" : 0.25,
+			"4" : 0.2,
+			"5" : 0.15,
+			"6" : 0.1,
+		},
+		"levels" : 6,
+		"required_difficulty" : 0
 	},
-	"jump_height" : {
+	#############################################################################################
+	"jump height" : {
 		"cost" : {
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
+			"0" : 100,
+			"1" : 120,
+			"2" : 140,
+			"3" : 160,
 		},
 		"value" : {
-			"0" : 0,
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
-		}
+			"0" : 4.5,
+			"1" : 5,
+			"2" : 6,
+			"3" : 8,
+			"4" : 10,
+		},
+		"levels" : 4,
+		"required_difficulty" : 2
 	},
-	"dash_energy_reduction" : {
+	#############################################################################################
+	"move speed" : {
 		"cost" : {
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
+			"0" : 100,
+			"1" : 120,
+			"2" : 140,
+		},
+		"value" : {
+			"0" : 10,
+			"1" : 12,
+			"2" : 14,
+			"3" : 16,
+		},
+		"levels" : 3,
+		"required_difficulty" : 3
+	},
+	#############################################################################################
+	"energy regen" : {
+		"cost" : {
+			"0" : 50,
+			"1" : 100,
+			"2" : 120,
+			"3" : 140,
+			"4" : 200,
+		},
+		"value" : {
+			"0" : 1,
+			"1" : 3,
+			"2" : 5,
+			"3" : 7,
+			"4" : 10,
+			"5" : 15,
+		},
+		"levels" : 5,
+		"description" : "time spend energy gained",
+		"required_difficulty" : 4
+	},
+	#############################################################################################
+	"dash energy reduction" : {
+		"cost" : {
+			"0" : 50,
+			"1" : 80,
+			"2" : 120,
+			"3" : 160,
+			"4" : 200,
+		},
+		"value" : {
+			"0" : 30,
+			"1" : 25,
+			"2" : 22,
+			"3" : 29,
+			"4" : 17,
+			"5" : 15,
+		},
+		"levels" : 5,
+		"required_difficulty" : 6
+	},
+	#############################################################################################
+	"dash speed" : {
+		"cost" : {
+			"0" : 60,
+			"1" : 80,
+			"2" : 100,
+			"3" : 120,
+		},
+		"value" : {
+			"0" : 50,
+			"1" : 55,
+			"2" : 60,
+			"3" : 70,
+			"4" : 80,
+		},
+		"levels" : 4,
+		"required_difficulty" : 6,
+		"description" : "faster = more distance",
+	},
+	#############################################################################################
+	"time acceleration" : {
+		"cost" : {
+			"0" : 200,
+			"1" : 220,
+			"2" : 260,
+			"3" : 300,
+			"4" : 500,
 		},
 		"value" : {
 			"0" : 0,
-			"1" : 0,
-			"2" : 0,
-			"3" : 0,
-			"4" : 0,
-			"5" : 0,
-			"6" : 0,
-		}
-	}
+			"1" : 0.05,
+			"2" : 0.1,
+			"3" : 0.2,
+			"4" : 0.3,
+			"5" : 0.5,
+		},
+		"levels" : 5,
+		"description" : "time starts to bend at your will, faster or slower 
+						(right click and move your mouse up and down)",
+		"required_difficulty" : 10
+	},
+	#############################################################################################
+	"gods assist" : {
+		"cost" : {
+			"0" : 100,
+			"1" : 200,
+			"2" : 300,
+			"3" : 400,
+			"4" : 500,
+			"5" : 666,
+		},
+		"value" : {
+			"0" : 10,
+			"1" : 8,
+			"2" : 6,
+			"3" : 5,
+			"4" : 3,
+			"5" : 2,
+			"6" : 1
+		},
+		"levels" : 6,
+		"description" : "your god will help you from time to time, 
+						as your inventment grows he will assist more",
+		"required_difficulty" : 12
+	},
 }
-
 const ENEMY_INFO := {
 	# if no value is provided default is used in the ball script
 	# speed := 5
@@ -121,14 +227,14 @@ const ENEMY_INFO := {
 		"inner" : preload("res://textures_and_materials/cyan/inner.tres"),
 		"outer" : preload("res://textures_and_materials/cyan/outer.tres"),
 		"light_color" : Color(0.0, 0.824, 0.969),
-		"speed" : 20,
+		"speed" : 35,
 		"health" : 5,
 		"time_damage" : -10,
 		"time_reward" : 5,
 	},
 	"orange" : { # heavy
 		"color" : Color(0.803, 0.324, 0.0, 1.0),
-		"speed" : 5,
+		"speed" : 8,
 		"health" : 40,
 		"time_damage" : -10,
 		"time_reward" : 5,
@@ -137,14 +243,14 @@ const ENEMY_INFO := {
 		"color" : Color(0.0, 0.179, 1.0, 1.0),
 		"speed" : 5,
 		"health" : 10,
-		"time_damage" : 4,
+		"time_damage" : -7,
 		"time_reward" : 3,
 	},
 	"purple" : { # time steal
 		"color" : Color(0.608, 0.0, 0.851, 1.0),
 		"speed" : 5,
 		"health" : 10,
-		"time_damage" : 4,
+		"time_damage" : -1,
 		"time_reward" : 3,
 	},
 	"green" : { # healer
@@ -156,41 +262,161 @@ const ENEMY_INFO := {
 	},
 }
 const DIFFICULTY_SPAWN_RATES := {
+	"0" : {
+		"spawn_rates" : {
+			"red" : 1,
+			"yellow" : 0,
+			"cyan" : 0,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 2.5
+	},
 	"1" : {
-		"red" : 1,
-		"yellow" : 0,
-		"cyan" : 0,
-		"orange" : 0,
-		"blue" : 0, 
-		"purple" : 0,
-		"green" : 0
+		"spawn_rates" : {
+			"red" : 1,
+			"yellow" : 0,
+			"cyan" : 0,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 2.5
 	},
 	"2" : {
-		"red" : 0.7,
-		"yellow" : 0.3,
-		"cyan" : 0,
-		"orange" : 0,
-		"blue" : 0, 
-		"purple" : 0,
-		"green" : 0 
+		"spawn_rates" : {
+			"red" : 0.9,
+			"yellow" : 0.1,
+			"cyan" : 0,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 2.5
 	},
 	"3" : {
-		"red" : 0.3,
-		"yellow" : 0.3,
-		"cyan" : 0.4,
-		"orange" : 0,
-		"blue" : 0, 
-		"purple" : 0,
-		"green" : 0 
+		"spawn_rates" : {
+			"red" : 0.7,
+			"yellow" : 0.3,
+			"cyan" : 0,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 2.4
 	},
 	"4" : {
-		"red" : 0.3,
-		"yellow" : 0.4,
-		"cyan" : 0.3,
-		"orange" : 0,
-		"blue" : 0, 
-		"purple" : 0,
-		"green" : 0 
+		"spawn_rates" : {
+			"red" : 0.5,
+			"yellow" : 0.4,
+			"cyan" : 0.1,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 2.2
+	},
+	"5" : {
+		"spawn_rates" : {
+			"red" : 0.4,
+			"yellow" : 0.3,
+			"cyan" : 0.3,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 2
+	},
+	"6" : {
+		"spawn_rates" : {
+			"red" : 0.3,
+			"yellow" : 0.3,
+			"cyan" : 0.4,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 1.8
+	},
+	"7" : {
+		"spawn_rates" : {
+			"red" : 0.2,
+			"yellow" : 0.2,
+			"cyan" : 0.6,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 1.6
+	},
+	"8" : {
+		"spawn_rates" : {
+			"red" : 0.2,
+			"yellow" : 0.4,
+			"cyan" : 0.4,
+			"orange" : 0,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 1.4
+	},
+	"9" : {
+		"spawn_rates" : {
+			"red" : 0.2,
+			"yellow" : 0.2,
+			"cyan" : 0.2,
+			"orange" : 0.4,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 1.2
+	},
+	"10" : {
+		"spawn_rates" : {
+			"red" : 0.2,
+			"yellow" : 0.3,
+			"cyan" : 0.2,
+			"orange" : 0.3,
+			"blue" : 0,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 1
+	},
+	"11" : {
+		"spawn_rates" : {
+			"red" : 0.1,
+			"yellow" : 0.2,
+			"cyan" : 0.2,
+			"orange" : 0.2,
+			"blue" : 0.3,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 0.9
+	},
+	"12" : {
+		"spawn_rates" : {
+			"red" : 0,
+			"yellow" : 0.1,
+			"cyan" : 0.8,
+			"orange" : 0,
+			"blue" : 0.1,
+			"purple" : 0,
+			"green" : 0
+		},
+		"spawn_interval" : 0.8
 	},
 }
 const ENEMY_TYPES := {
@@ -202,7 +428,6 @@ const ENEMY_TYPES := {
 	"purple" : ENEMY_ENUMS.PURPLE,
 	"green" : ENEMY_ENUMS.GREEN
 }
-const DIFFICULTY_TIME_STEPS := [10, 30, 60]
 
 var dead := true
 var shop_open := false
@@ -212,14 +437,26 @@ var first_person := false
 var enemies := 0
 var time := 10.0
 var run_time := 0.0
-var difficulty := 1
+var difficulty := 0
 
 # save varibles
 var seconds := 0
-var highest_difficulty := 1
-var shop_unlock_remaining_cost := 50
+var highest_difficulty := 0
+var shop_unlock_remaining_cost := 20
 
 var unlocked_shop := false
+
+var upgrade_levels := {
+	"damage" : 0,
+	"reload" : 0,
+	"jump height" : 0,
+	"move speed" : 0,
+	"energy regen" : 0,
+	"dash energy reduction" : 0,
+	"dash speed" : 0,
+	"time acceleration" : 0,
+	"gods assist" : 0,
+}
 
 
 func spawn_temp_sound(sound : AudioStream, temp_sound_scene : PackedScene, 

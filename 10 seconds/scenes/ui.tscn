@@ -167,6 +167,134 @@ tracks/13/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("shop:position:y")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("shop:modulate:a")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("shop:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("time_currency:position:y")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-80, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/18/type = "bezier"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("time_currency:position:x")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(448, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("time_currency:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ktti3"]
+resource_name = "close_shop"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shop:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.7, 17.03835, 0.1, 559.6507, 620, -0.4, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shop:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.3, -0.055160165, 0.06666667, -0.2937261, 0, -0.5, 0.026163172, 0.13333334, 0.440029),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shop:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("time_currency:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(15, -0.25, 0, 0.06666667, -79.38915, -80, -0.39999998, 1.7675018, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("time_currency:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_yev5y"]
 resource_name = "end_run"
@@ -404,12 +532,74 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0.0333333, 1)
 }
 
+[sub_resource type="Animation" id="Animation_cgfq5"]
+resource_name = "open_shop"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shop:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(620, 0, 0, 0.033333335, -575.1773, 0, -0.7, 17.03835, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shop:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.13333334, 0.440029, 1, -0.3, -0.055160165, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shop:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("time_currency:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(-80, -0.25, 0, 0.033333335, 70.16924, 15, -0.23333335, -1.5894021, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("time_currency:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gdt2y"]
 _data = {
 &"RESET": SubResource("Animation_x4jx1"),
+&"close_shop": SubResource("Animation_ktti3"),
 &"end_run": SubResource("Animation_yev5y"),
 &"intro": SubResource("Animation_8dubc"),
-&"new_run": SubResource("Animation_wm3ai")
+&"new_run": SubResource("Animation_wm3ai"),
+&"open_shop": SubResource("Animation_cgfq5")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8dubc"]
@@ -421,9 +611,9 @@ draw_center = false
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7vwb"]
-content_margin_left = 200.0
+content_margin_left = 150.0
 content_margin_top = 100.0
-content_margin_right = 200.0
+content_margin_right = 150.0
 content_margin_bottom = 100.0
 draw_center = false
 
@@ -438,11 +628,44 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dvkv"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+bg_color = Color(0.37539852, 0.3753986, 0.37539837, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdcm2"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+bg_color = Color(0.2568699, 0.25686997, 0.25686988, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6rmj2"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+bg_color = Color(0.43647724, 0.4364773, 0.43647727, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgfq5"]
 content_margin_top = 10.0
 draw_center = false
 
-[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "alot_of_time_sound", "end_run_sound", "crosshair", "animation", "you_survived_time", "shop_button")]
+[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "crosshair", "animation", "alot_of_time_sound", "end_run_sound", "you_survived_time", "time_currency", "time_exchange", "normal_upgrades_vbox", "skill_unlock_vbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -452,12 +675,17 @@ grow_vertical = 2
 script = ExtResource("1_nt7q6")
 time = NodePath("time")
 background_time = NodePath("background_time")
-alot_of_time_sound = NodePath("alot of time")
-end_run_sound = NodePath("end run")
 crosshair = NodePath("Crosshair")
 animation = NodePath("AnimationPlayer")
+alot_of_time_sound = NodePath("alot of time")
+end_run_sound = NodePath("end run")
 you_survived_time = NodePath("you_survived/VBoxContainer/you_survived_time")
-shop_button = NodePath("try_again_or_leave/VBoxContainer/shop_button")
+time_currency = NodePath("time_currency")
+time_exchange = NodePath("try_again_or_leave/VBoxContainer/time_exchange")
+normal_upgrades_vbox = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer/normal_upgrades")
+skill_unlock_vbox = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer2/skills")
+upgrade_cell_scene = ExtResource("6_ktti3")
+metadata/_edit_lock_ = true
 
 [node name="background_time" type="Label" parent="." unique_id=47922032]
 modulate = Color(1, 1, 1, 0.23529412)
@@ -528,6 +756,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="intro" type="PanelContainer" parent="." unique_id=424216633]
 z_index = 1
@@ -680,7 +909,7 @@ text = "LEAVE"
 flat = true
 metadata/_edit_lock_ = true
 
-[node name="shop_button" type="Button" parent="try_again_or_leave/VBoxContainer" unique_id=1902679420]
+[node name="time_exchange" type="Button" parent="try_again_or_leave/VBoxContainer" unique_id=1902679420]
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_wm3ai")
@@ -690,14 +919,18 @@ flat = true
 metadata/_edit_lock_ = true
 
 [node name="shop" type="PanelContainer" parent="." unique_id=733321497]
+visible = false
+modulate = Color(1, 1, 1, 0)
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -0.00036621094
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p7vwb")
+metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="shop" unique_id=1090935492]
 layout_mode = 2
@@ -706,13 +939,39 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ktti3")
 [node name="VBoxContainer" type="VBoxContainer" parent="shop/PanelContainer" unique_id=1613651609]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="shop/PanelContainer/VBoxContainer" unique_id=2017640546]
+[node name="HBoxContainer" type="HBoxContainer" parent="shop/PanelContainer/VBoxContainer" unique_id=253984972]
 layout_mode = 2
+alignment = 1
+
+[node name="you dont see this" type="Button" parent="shop/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1696107256]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "CLOSE"
+flat = true
+
+[node name="Label" type="Label" parent="shop/PanelContainer/VBoxContainer/HBoxContainer" unique_id=2017640546]
+layout_mode = 2
+size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 64
 text = "time exchange"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="close_button" type="Button" parent="shop/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1295572868]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7dvkv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vdcm2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6rmj2")
+text = "CLOSE"
 
 [node name="ShopDivider" type="TextureRect" parent="shop/PanelContainer/VBoxContainer" unique_id=721369303]
 modulate = Color(0.5251013, 0.5251013, 0.5251013, 1)
@@ -729,20 +988,40 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="normal_upgrades" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1564985996]
+[node name="ScrollContainer" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1020113572]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="upgrade_cell" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/normal_upgrades" unique_id=1496350727 instance=ExtResource("6_ktti3")]
-layout_mode = 2
-
-[node name="skills" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=65431210]
+[node name="normal_upgrades" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer" unique_id=1564985996]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/skills" unique_id=1639369941]
-layout_mode = 2
 size_flags_vertical = 3
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=879222950]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="skills" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer2" unique_id=65431210]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="time_currency" type="Label" parent="." unique_id=891263180]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = -80.0
+offset_right = 192.0
+offset_bottom = -6.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 32
+text = "you have 10000 seconds"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="alot of time" type="AudioStreamPlayer" parent="." unique_id=1899103215]
 stream = ExtResource("3_yev5y")
@@ -752,4 +1031,5 @@ stream = ExtResource("4_gdt2y")
 
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/try_again" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/leave" to="." method="_on_leave_pressed"]
-[connection signal="pressed" from="try_again_or_leave/VBoxContainer/shop_button" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="try_again_or_leave/VBoxContainer/time_exchange" to="." method="_on_time_exchange_pressed"]
+[connection signal="pressed" from="shop/PanelContainer/VBoxContainer/HBoxContainer/close_button" to="." method="_on_close_button_pressed"]

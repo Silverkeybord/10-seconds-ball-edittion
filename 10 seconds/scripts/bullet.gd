@@ -5,8 +5,6 @@ const lifetime := 2.0
 
 var direction := Vector3.ZERO
 
-@export var damage := 2
-
 @export var fade_in_animation : AnimationPlayer
 
 
@@ -24,6 +22,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.has_meta("enemy"):
+		var damage = Global.SHOP_INFO["damage"]["value"][str(Global.upgrade_levels["damage"])]
 		body.health -= damage
 		body.hit()
 		queue_free()

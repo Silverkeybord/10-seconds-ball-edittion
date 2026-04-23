@@ -8,6 +8,7 @@ const MAX_ENEMIES := 50
 const ENEMY_CAP := 30
 
 @export var ball_scene : PackedScene
+@export var spawn_timer : Timer
 
 
 func _ready() -> void:
@@ -25,7 +26,7 @@ func _on_spawn_timer_timeout() -> void:
 	var val = randf()
 	var add := 0.0
 	var type : String
-	var probilities = Global.DIFFICULTY_SPAWN_RATES[str(Global.difficulty)]
+	var probilities = Global.DIFFICULTY_SPAWN_RATES[str(Global.difficulty)]["spawn_rates"]
 	for x in probilities:
 		add += probilities[x]
 		if val <= add:

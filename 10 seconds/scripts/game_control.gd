@@ -15,11 +15,9 @@ func _process(_delta: float) -> void:
 		
 		Global.enemies = 0
 	
-	var diff := 1
-	for x in Global.DIFFICULTY_TIME_STEPS:
-		if Global.run_time >= x:
-			diff += 1
-		else:
-			break
+	var diff = floor(Global.run_time / 10)
+	
+	if Global.highest_difficulty < diff:
+		Global.highest_difficulty = diff
 	
 	Global.difficulty = diff

@@ -1,15 +1,9 @@
 extends CharacterBody3D
 
 const MAX_ENERGY := 100
-const ENERGY_REGEN := 5
+var DASH_DURATION := 0.2
 const SLASH := " / "
 
-const DASH_ENERGY_COST := 30
-const DASH_SPEED := 50.0
-const DASH_DURATION := 0.2
-
-const NORMAL_SPEED := 10.0
-const JUMP_VELOCITY := 4.5
 
 const SHOOT_SOUND := preload("res://sounds/shoot_sound.WAV")
 
@@ -24,10 +18,19 @@ const ENERGY_MAX := 10.0
 const ENERGY_CURVE := 150.0
 const ENERGY_THRESHOLD := 20.0
 
-var holding_jump := false
-var dash_timer := 0.0
-var speed = NORMAL_SPEED
+var energy_regen := 1
+var dash_speed := 50.0
+var reload := 0.5
+var jump_velocity := 4.5
+var normal_speed := 10.0
+var dash_energy_cost := 30
+
+
 var can_shoot := true
+var holding_jump := false
+
+var dash_timer := 0.0
+var speed = normal_speed
 var energy := 100.0
 
 @export var bullet_scene : PackedScene
@@ -35,13 +38,16 @@ var energy := 100.0
 
 @export_group("in scene exports")
 @export var spring_arm : SpringArm3D
-@export var shoot_cooldown : float = 0.4
 @export var player_light : OmniLight3D
 @export var dash_sfx_audio_player : AudioStreamPlayer3D
 @export var right_energy_bar : ProgressBar
 @export var left_energy_bar : ProgressBar
 @export var energy_label : Label
 @export var camera_raycast : RayCast3D
+
+
+func _ready() -> void:
+	_check_upgrades()
 
 
 func _physics_process(delta: float) -> void:
@@ -51,10 +57,10 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
 	
 	if Input.is_action_just_released("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
 	
 
 	# Get the input direction and handle the movement/deceleration.
@@ -70,22 +76,22 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	if (Input.is_action_just_pressed("dash") and 
-		speed == NORMAL_SPEED and
-		energy >= DASH_ENERGY_COST):
+	if (Input.is_action_just_pressed("dash") and
+		speed == normal_speed and
+		energy >= dash_energy_cost):
 		
-		energy -= DASH_ENERGY_COST
-		speed = DASH_SPEED
+		energy -= dash_energy_cost
+		speed = dash_speed
 		set_collision_layer_value(1, false)
 		set_collision_mask_value(1, false)
 		dash_timer = DASH_DURATION
 		dash_sfx_audio_player.play()
 	
-	if speed == DASH_SPEED:
+	if speed != normal_speed:
 		dash_timer -= delta
 		
 		if dash_timer <= 0:
-			speed = NORMAL_SPEED
+			speed = normal_speed
 			set_collision_layer_value(1, true)
 			set_collision_mask_value(1, true)
 
@@ -119,12 +125,12 @@ func _shoot() -> void:
 	Global.spawn_temp_sound(SHOOT_SOUND, temp_sound_scene, position, self)
 	
 	can_shoot = false
-	await get_tree().create_timer(shoot_cooldown).timeout
+	await get_tree().create_timer(reload).timeout
 	can_shoot = true
 
 
 func _energy_generation(delta : float) -> void:
-	energy += ENERGY_REGEN / (1 / delta)
+	energy += energy_regen / (1 / delta)
 	energy = round(clamp(energy, 0, MAX_ENERGY) * 100) / 100
 	right_energy_bar.value = energy
 	left_energy_bar.value = energy
@@ -154,3 +160,12 @@ func _omni_light_scaling() -> void:
 	else:
 		player_light.light_indirect_energy = max(ENERGY_MIN, ENERGY_MAX * 
 		(1.0 - exp(-(time - ENERGY_THRESHOLD) / ENERGY_CURVE)))
+
+
+func _check_upgrades() -> void:
+	normal_speed = Global.SHOP_INFO["move speed"]["value"][str(Global.upgrade_levels["move speed"])]
+	reload = Global.SHOP_INFO["reload"]["value"][str(Global.upgrade_levels["reload"])]
+	energy_regen = Global.SHOP_INFO["energy regen"]["value"][str(Global.upgrade_levels["energy regen"])]
+	dash_energy_cost = Global.SHOP_INFO["dash energy reduction"]["value"][str(Global.upgrade_levels["dash energy reduction"])]
+	dash_speed = Global.SHOP_INFO["dash speed"]["value"][str(Global.upgrade_levels["dash speed"])]
+	jump_velocity = Global.SHOP_INFO["jump height"]["value"][str(Global.upgrade_levels["jump height"])]

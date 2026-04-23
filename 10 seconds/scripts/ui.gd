@@ -35,14 +35,23 @@ var sfx_stage := 0
 var shake_rotation_offset := PURPLE_ROTATION_OFFSET
 var shake_offset := PURPLE_SHAKE_OFFSET
 
+@export_group("main visuals")
 @export var time : Label
 @export var background_time : Label
-@export var alot_of_time_sound: AudioStreamPlayer
-@export var end_run_sound: AudioStreamPlayer
 @export var crosshair : TextureRect
 @export var animation : AnimationPlayer
+
+@export_group("end run")
+@export var alot_of_time_sound: AudioStreamPlayer
+@export var end_run_sound: AudioStreamPlayer
 @export var you_survived_time : Label
-@export var shop_button : Button
+
+@export_group("shop")
+@export var time_currency : Label
+@export var time_exchange : Button
+@export var normal_upgrades_vbox : VBoxContainer
+@export var skill_unlock_vbox : VBoxContainer
+@export var upgrade_cell_scene : PackedScene
 
 @onready var message := preload("res://sounds/you have 10 seconds(1).WAV")
 
@@ -50,6 +59,17 @@ var shake_offset := PURPLE_SHAKE_OFFSET
 func _ready() -> void:
 	animation.play("intro")
 	await get_tree().process_frame
+	
+	for upgrade_type in Global.SHOP_INFO:
+		var upgrade_cell = upgrade_cell_scene.instantiate()
+		upgrade_cell.upgrade = upgrade_type
+		normal_upgrades_vbox.add_child(upgrade_cell)
+	
+	if Global.unlocked_shop:
+		time_exchange.text = "time exchange?"
+	else:
+		time_exchange.text = COST_TEST + str(Global.shop_unlock_remaining_cost) + SECONDS_TEXT
+	
 	var intro_message = AudioStreamPlayer.new()
 	intro_message.stream = message
 	add_sibling(intro_message)
@@ -67,6 +87,8 @@ func _process(delta: float) -> void:
 	
 	time.text = str(snapped(Global.time, 0.01))
 	background_time.text = time.text
+	
+	time_currency.text = "you have " + str(Global.seconds) + " seconds"
 	
 	_background_time_shake()
 	_time_color_changes()
@@ -128,16 +150,27 @@ func end_run() -> void:
 	animation.play("end_run")
 	await animation.animation_finished
 	Global._unlock_mouse_movement()
+	
+	var upgrades = normal_upgrades_vbox.get_children()
+	for upgrade in upgrades:
+		upgrade.check_difficulty_unlock()
 
 
 func _on_leave_pressed() -> void:
+	if animation.is_playing():
+		return
+	
 	get_tree().quit()
 
 
 func _on_try_again_pressed() -> void:
+	if animation.is_playing():
+		return
+	
 	animation.play("new_run")
 	var player = get_tree().get_first_node_in_group("player")
 	player.position = Vector3.UP
+	player._check_upgrades()
 	Global.time = starting_time
 	Global.run_time = 0
 	Global.ongoing_run = true
@@ -147,8 +180,8 @@ func _on_try_again_pressed() -> void:
 	Global.dead = false
 
 
-func _on_shop_button_pressed() -> void:
-	if Global.unlocked_shop:
+func _on_time_exchange_pressed() -> void:
+	if Global.unlocked_shop and not animation.is_playing():
 		animation.play("open_shop")
 		
 	else:
@@ -156,9 +189,13 @@ func _on_shop_button_pressed() -> void:
 			Global.seconds -= Global.shop_unlock_remaining_cost
 			Global.shop_unlock_remaining_cost = 0
 			Global.unlocked_shop = true
-			shop_button.text = "time exchange?"
+			time_exchange.text = "time exchange?"
 			
 		else:
 			Global.shop_unlock_remaining_cost -= Global.seconds
 			Global.seconds = 0
-			shop_button.text = COST_TEST + str(Global.shop_unlock_remaining_cost) + SECONDS_TEXT
+			time_exchange.text = COST_TEST + str(Global.shop_unlock_remaining_cost) + SECONDS_TEXT
+
+
+func _on_close_button_pressed() -> void:
+	animation.play("close_shop")
