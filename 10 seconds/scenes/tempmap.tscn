@@ -59,9 +59,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43226624, 0)
 operation = 2
 mesh = SubResource("CylinderMesh_m6tcy")
 
-[node name="enemy_control" type="Node" parent="." unique_id=241684149]
+[node name="enemy_control" type="Node" parent="." unique_id=241684149 node_paths=PackedStringArray("spawn_timer")]
 script = ExtResource("2_jtucn")
 ball_scene = ExtResource("3_ix781")
+spawn_timer = NodePath("spawn_timer")
 
 [node name="spawn_timer" type="Timer" parent="enemy_control" unique_id=651182697]
 autostart = true

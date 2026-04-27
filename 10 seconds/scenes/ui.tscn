@@ -665,7 +665,27 @@ expand_margin_top = 5.0
 content_margin_top = 10.0
 draw_center = false
 
-[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "crosshair", "animation", "alot_of_time_sound", "end_run_sound", "you_survived_time", "time_currency", "time_exchange", "normal_upgrades_vbox", "skill_unlock_vbox")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsj0x"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.27450982, 0.27450982, 0.27450982, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsv74"]
+content_margin_top = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.551624, 0.551624, 0.5516238, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "crosshair", "animation", "alot_of_time_sound", "end_run_sound", "you_survived_time", "time_currency", "time_exchange", "normal_upgrades_vbox", "skill_unlock_vbox", "skills_description_panel", "upgrade_description_panel", "skills_description", "upgrade_description", "skills_description_name", "upgrade_description_name")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -682,9 +702,15 @@ end_run_sound = NodePath("end run")
 you_survived_time = NodePath("you_survived/VBoxContainer/you_survived_time")
 time_currency = NodePath("time_currency")
 time_exchange = NodePath("try_again_or_leave/VBoxContainer/time_exchange")
-normal_upgrades_vbox = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer/normal_upgrades")
-skill_unlock_vbox = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer2/skills")
+normal_upgrades_vbox = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills/ScrollContainer/normal_upgrades")
+skill_unlock_vbox = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills/ScrollContainer2/skills")
 upgrade_cell_scene = ExtResource("6_ktti3")
+skills_description_panel = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description")
+upgrade_description_panel = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description")
+skills_description = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description/VBoxContainer/description")
+upgrade_description = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description/VBoxContainer/description")
+skills_description_name = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description/VBoxContainer/upgrade_name")
+upgrade_description_name = NodePath("shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description/VBoxContainer/upgrade_name")
 metadata/_edit_lock_ = true
 
 [node name="background_time" type="Label" parent="." unique_id=47922032]
@@ -926,11 +952,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -0.00036621094
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p7vwb")
 metadata/_edit_lock_ = true
+metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="shop" unique_id=1090935492]
 layout_mode = 2
@@ -950,6 +976,7 @@ size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("2_wm3ai")
 theme_override_font_sizes/font_size = 32
 disabled = true
+button_mask = 0
 text = "CLOSE"
 flat = true
 
@@ -983,25 +1010,94 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_cgfq5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer" unique_id=36251184]
+[node name="description_hbox" type="HBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer" unique_id=1944101624]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1020113572]
+[node name="skills_description" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox" unique_id=552066710]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vsj0x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description" unique_id=723540348]
+clip_contents = true
+layout_mode = 2
+
+[node name="upgrade_name" type="Label" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description/VBoxContainer" unique_id=1751048571]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 24
+text = "Name of the upgrade"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description/VBoxContainer" unique_id=247998456]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qsv74")
+
+[node name="description" type="Label" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/skills_description/VBoxContainer" unique_id=914970048]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_wm3ai")
+text = "This is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long description"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="upgrade_description" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox" unique_id=1020112231]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vsj0x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description" unique_id=186664257]
+clip_contents = true
+layout_mode = 2
+
+[node name="upgrade_name" type="Label" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description/VBoxContainer" unique_id=113521410]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 24
+text = "Name of the upgrade"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description/VBoxContainer" unique_id=1688707427]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qsv74")
+
+[node name="description" type="Label" parent="shop/PanelContainer/VBoxContainer/PanelContainer/description_hbox/upgrade_description/VBoxContainer" unique_id=969426594]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_wm3ai")
+text = "This is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long descriptionThis is a long description"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="upgrades_and_skills" type="HBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer" unique_id=36251184]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills" unique_id=1020113572]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="normal_upgrades" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer" unique_id=1564985996]
+[node name="normal_upgrades" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills/ScrollContainer" unique_id=1564985996]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=879222950]
+[node name="ScrollContainer2" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills" unique_id=879222950]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="skills" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer2" unique_id=65431210]
+[node name="skills" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills/ScrollContainer2" unique_id=65431210]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1028,6 +1124,10 @@ stream = ExtResource("3_yev5y")
 
 [node name="end run" type="AudioStreamPlayer" parent="." unique_id=941460615]
 stream = ExtResource("4_gdt2y")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=503392335]
+position = Vector2(659, 891)
+zoom = Vector2(0.4, 0.4)
 
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/try_again" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/leave" to="." method="_on_leave_pressed"]

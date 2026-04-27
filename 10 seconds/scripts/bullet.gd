@@ -22,7 +22,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.has_meta("enemy"):
-		var damage = Global.SHOP_INFO["damage"]["value"][str(Global.upgrade_levels["damage"])]
+		var damage = Global.SHOP_INFO_UPGRADES["damage"]["value"][str(Global.upgrade_levels["damage"])]
 		body.health -= damage
 		body.hit()
 		queue_free()

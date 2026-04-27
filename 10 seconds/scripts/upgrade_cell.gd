@@ -15,8 +15,8 @@ const RUNTIME_DIFFICULTY_RELATION := 10
 @export var locked_label : Label
 @export var locked_overlay : PanelContainer
 @export var info_button : Button
-@export var discription : Label
 
+@export var UI_control : Control
 
 var locked := true
 var required_difficulty : int
@@ -30,7 +30,7 @@ var description : String
 
 func _ready() -> void:
 	await get_tree().process_frame
-	upgrade_info = Global.SHOP_INFO[upgrade]
+	upgrade_info = Global.SHOP_INFO_UPGRADES[upgrade]
 	required_difficulty = upgrade_info["required_difficulty"]
 	
 	if upgrade_info.has("description"):
@@ -84,3 +84,13 @@ func check_difficulty_unlock() -> void:
 		locked_overlay.visible = false
 		locked = false
 		exchange_button.disabled = false
+
+
+func _on_info_button_mouse_entered() -> void:
+	if description:
+		UI_control.display_description(description, true, upgrade)
+
+
+func _on_info_button_mouse_exited() -> void:
+	if description:
+		UI_control.remove_description(true)

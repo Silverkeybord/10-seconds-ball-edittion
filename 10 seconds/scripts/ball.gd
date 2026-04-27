@@ -58,6 +58,7 @@ func _ready() -> void:
 			time_damage = type_info["time_damage"]
 			time_reward = type_info["time_reward"]
 		Global.ENEMY_ENUMS.CYAN:
+			jump_timer.start()
 			speed = type_info["speed"]
 			health = type_info["health"]
 			time_damage = type_info["time_damage"]

@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-const MAX_ENERGY := 100
 var DASH_DURATION := 0.2
 const SLASH := " / "
 
@@ -35,6 +34,8 @@ var energy := 100.0
 
 @export var bullet_scene : PackedScene
 @export var temp_sound_scene : PackedScene
+
+@export var MAX_ENERGY := 100
 
 @export_group("in scene exports")
 @export var spring_arm : SpringArm3D
@@ -163,9 +164,9 @@ func _omni_light_scaling() -> void:
 
 
 func _check_upgrades() -> void:
-	normal_speed = Global.SHOP_INFO["move speed"]["value"][str(Global.upgrade_levels["move speed"])]
-	reload = Global.SHOP_INFO["reload"]["value"][str(Global.upgrade_levels["reload"])]
-	energy_regen = Global.SHOP_INFO["energy regen"]["value"][str(Global.upgrade_levels["energy regen"])]
-	dash_energy_cost = Global.SHOP_INFO["dash energy reduction"]["value"][str(Global.upgrade_levels["dash energy reduction"])]
-	dash_speed = Global.SHOP_INFO["dash speed"]["value"][str(Global.upgrade_levels["dash speed"])]
-	jump_velocity = Global.SHOP_INFO["jump height"]["value"][str(Global.upgrade_levels["jump height"])]
+	normal_speed = Global.SHOP_INFO_UPGRADES["move speed"]["value"][str(Global.upgrade_levels["move speed"])]
+	reload = Global.SHOP_INFO_UPGRADES["reload"]["value"][str(Global.upgrade_levels["reload"])]
+	energy_regen = Global.SHOP_INFO_UPGRADES["energy regen"]["value"][str(Global.upgrade_levels["energy regen"])]
+	dash_energy_cost = Global.SHOP_INFO_UPGRADES["dash energy reduction"]["value"][str(Global.upgrade_levels["dash energy reduction"])]
+	dash_speed = Global.SHOP_INFO_UPGRADES["dash speed"]["value"][str(Global.upgrade_levels["dash speed"])]
+	jump_velocity = Global.SHOP_INFO_UPGRADES["jump height"]["value"][str(Global.upgrade_levels["jump height"])]

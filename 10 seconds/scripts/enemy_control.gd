@@ -38,6 +38,8 @@ func _on_spawn_timer_timeout() -> void:
 	
 	add_child(new_ball)
 	Global.enemies += 1
+	
+	spawn_timer.wait_time = Global.DIFFICULTY_SPAWN_RATES[str(Global.difficulty)]["spawn_interval"]
 
 
 func random_spawn_pos() -> Vector3:

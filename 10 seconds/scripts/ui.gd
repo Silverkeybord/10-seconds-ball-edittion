@@ -53,6 +53,13 @@ var shake_offset := PURPLE_SHAKE_OFFSET
 @export var skill_unlock_vbox : VBoxContainer
 @export var upgrade_cell_scene : PackedScene
 
+@export var skills_description_panel : PanelContainer
+@export var upgrade_description_panel : PanelContainer
+@export var skills_description : Label
+@export var upgrade_description : Label
+@export var skills_description_name : Label
+@export var upgrade_description_name : Label
+
 @onready var message := preload("res://sounds/you have 10 seconds(1).WAV")
 
 
@@ -60,10 +67,17 @@ func _ready() -> void:
 	animation.play("intro")
 	await get_tree().process_frame
 	
-	for upgrade_type in Global.SHOP_INFO:
+	for upgrade_type in Global.SHOP_INFO_UPGRADES:
 		var upgrade_cell = upgrade_cell_scene.instantiate()
 		upgrade_cell.upgrade = upgrade_type
 		normal_upgrades_vbox.add_child(upgrade_cell)
+		upgrade_cell.UI_control = self
+	
+	for upgrade_type in Global.SHOP_INFO_SKILLS:
+		var upgrade_cell = upgrade_cell_scene.instantiate()
+		upgrade_cell.upgrade = upgrade_type
+		skill_unlock_vbox.add_child(upgrade_cell)
+		upgrade_cell.UI_control = self
 	
 	if Global.unlocked_shop:
 		time_exchange.text = "time exchange?"
@@ -170,6 +184,7 @@ func _on_try_again_pressed() -> void:
 	animation.play("new_run")
 	var player = get_tree().get_first_node_in_group("player")
 	player.position = Vector3.UP
+	player.energy = player.MAX_ENERGY
 	player._check_upgrades()
 	Global.time = starting_time
 	Global.run_time = 0
@@ -199,3 +214,21 @@ func _on_time_exchange_pressed() -> void:
 
 func _on_close_button_pressed() -> void:
 	animation.play("close_shop")
+
+
+func display_description(description : String, call_node_is_upgrade : bool, upgrade: String):
+	if call_node_is_upgrade:
+		upgrade_description_panel.modulate.a = 1
+		upgrade_description.text = description
+		upgrade_description_name.text = upgrade
+	else:
+		skills_description_panel.modulate.a = 1
+		skills_description.text = description
+		skills_description_name.text = upgrade
+
+
+func remove_description(call_node_is_upgrade: bool):
+	if call_node_is_upgrade:
+		upgrade_description_panel.modulate.a = 0
+	else:
+		skills_description_panel.modulate.a = 0
