@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://3xrj0yseqmeo" path="res://scripts/game_control.gd" id="1_88atw"]
 [ext_resource type="PackedScene" uid="uid://cooj0ir6lwmtu" path="res://scenes/player.tscn" id="1_teymc"]
 [ext_resource type="Script" uid="uid://oxq3wnsduasq" path="res://scripts/enemy_control.gd" id="2_jtucn"]
+[ext_resource type="Texture2D" uid="uid://cphy7nc63hjt2" path="res://basic floor.png" id="3_annxu"]
 [ext_resource type="PackedScene" uid="uid://co3mr7q8p5y3n" path="res://scenes/ball.tscn" id="3_ix781"]
 [ext_resource type="PackedScene" uid="uid://c6hndahnjrq7g" path="res://scenes/ui.tscn" id="4_adqva"]
 [ext_resource type="PackedScene" uid="uid://1ggsldlnwicg" path="res://scenes/pause.tscn" id="5_m6tcy"]
+[ext_resource type="AudioStream" uid="uid://cm67jsi532mx" path="res://sounds/sound_track.WAV" id="8_1rlsf"]
 
 [sub_resource type="Environment" id="Environment_teymc"]
 background_mode = 1
@@ -17,9 +19,14 @@ volumetric_fog_albedo = Color(0.43647724, 0.43647736, 0.4364772, 1)
 volumetric_fog_length = 32.0
 volumetric_fog_detail_spread = 0.5
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_adqva"]
-top_radius = 50.0
-bottom_radius = 50.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_annxu"]
+albedo_texture = ExtResource("3_annxu")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1rlsf"]
+albedo_texture = ExtResource("3_annxu")
+uv1_triplanar = true
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_m6tcy"]
 top_radius = 50.0
@@ -28,7 +35,7 @@ height = 20.0
 
 [node name="tempmap" type="Node3D" unique_id=1812292337 node_paths=PackedStringArray("ui")]
 script = ExtResource("1_88atw")
-ui = NodePath("UI")
+ui = NodePath("CanvasLayer/UI")
 
 [node name="CharacterBody3D" parent="." unique_id=140477337 instance=ExtResource("1_teymc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.384575, 0)
@@ -38,12 +45,13 @@ environment = SubResource("Environment_teymc")
 
 [node name="map" type="MeshInstance3D" parent="." unique_id=2141755494]
 
-[node name="floor" type="CSGMesh3D" parent="map" unique_id=1565282997]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+[node name="CSGBox3D" type="CSGBox3D" parent="map" unique_id=135057524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
-mesh = SubResource("CylinderMesh_adqva")
+size = Vector3(100, 5, 100)
+material = SubResource("StandardMaterial3D_annxu")
 
 [node name="wall" type="CSGCylinder3D" parent="map" unique_id=1714748983]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
@@ -53,6 +61,7 @@ collision_mask = 3
 radius = 55.0
 height = 10.0
 sides = 20
+material = SubResource("StandardMaterial3D_1rlsf")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="map/wall" unique_id=823986032]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43226624, 0)
@@ -67,8 +76,18 @@ spawn_timer = NodePath("spawn_timer")
 [node name="spawn_timer" type="Timer" parent="enemy_control" unique_id=651182697]
 autostart = true
 
-[node name="UI" parent="." unique_id=1306402346 instance=ExtResource("4_adqva")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1496493848]
 
-[node name="Pause" parent="." unique_id=154197391 instance=ExtResource("5_m6tcy")]
+[node name="UI" parent="CanvasLayer" unique_id=1306402346 instance=ExtResource("4_adqva")]
+
+[node name="Pause" parent="CanvasLayer" unique_id=154197391 instance=ExtResource("5_m6tcy")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=480854780]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 20.637806, 0)
+visible = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=782817286]
+stream = ExtResource("8_1rlsf")
+autoplay = true
 
 [connection signal="timeout" from="enemy_control/spawn_timer" to="enemy_control" method="_on_spawn_timer_timeout"]

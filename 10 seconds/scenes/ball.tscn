@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://nvnujla7j0wc" path="res://scripts/ball.gd" id="1_7s4qf"]
 [ext_resource type="PackedScene" uid="uid://duykwlfblt35v" path="res://scenes/time_indication.tscn" id="2_cxlvu"]
 [ext_resource type="PackedScene" uid="uid://b8o54t2425o0c" path="res://scenes/temp_sound.tscn" id="3_f7cbr"]
-[ext_resource type="Material" uid="uid://cllndi0bjcbw6" path="res://textures_and_materials/yellow/outer.tres" id="4_eew57"]
-[ext_resource type="Material" uid="uid://dncjfqc22sprl" path="res://textures_and_materials/yellow/inner.tres" id="5_jj7gd"]
+[ext_resource type="Material" uid="uid://b1wksqeqhifte" path="res://textures_and_materials/orange/tank_shield.tres" id="4_jj7gd"]
+[ext_resource type="Material" uid="uid://crucsplw7amyr" path="res://textures_and_materials/orange/inner.tres" id="5_fwo8l"]
+[ext_resource type="PackedScene" uid="uid://bdvxfk5dvj6fs" path="res://scenes/shooter_bullet.tscn" id="5_v8l5b"]
+[ext_resource type="PackedScene" uid="uid://bhwm1kokkk7f5" path="res://scenes/tank_shield.tscn" id="6_jj7gd"]
+[ext_resource type="Material" uid="uid://8tqteoj60hvs" path="res://textures_and_materials/red/outer.tres" id="8_v8l5b"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_n1dj2"]
 radius = 0.75
@@ -20,51 +23,153 @@ height = 1.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_7s4qf"]
 radius = 1.0
 
-[node name="ball" type="CharacterBody3D" unique_id=1568509479 node_paths=PackedStringArray("attack_timer", "inner_ball", "outer_ball", "light", "jump_timer")]
+[sub_resource type="Animation" id="Animation_f7kxq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spawn_beam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 10, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spawn_beam:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_e8gir"]
+resource_name = "spawn_animaiton"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spawn_beam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 10, 0), Vector3(0, -18, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spawn_beam:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4m2kh"]
+_data = {
+&"RESET": SubResource("Animation_f7kxq"),
+&"spawn_animaiton": SubResource("Animation_e8gir")
+}
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_iijjg"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 30.0
+
+[node name="ball" type="CharacterBody3D" unique_id=1568509479 node_paths=PackedStringArray("attack_timer", "inner_ball", "outer_ball", "light", "spawn_beam", "jump_timer", "shoot_timer")]
 script = ExtResource("1_7s4qf")
 attack_timer = NodePath("attack_timer")
 inner_ball = NodePath("ball_mesh/inner")
 outer_ball = NodePath("ball_mesh/outer")
 light = NodePath("OmniLight3D")
+spawn_beam = NodePath("spawn_beam")
 jump_timer = NodePath("jump_timer")
+shoot_timer = NodePath("shoot_timer")
 time_deduction_scene = ExtResource("2_cxlvu")
 temp_sound_scene = ExtResource("3_f7cbr")
+tank_shield = ExtResource("6_jj7gd")
+shooter_bullet = ExtResource("5_v8l5b")
 metadata/enemy = false
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=593740426]
 shape = SubResource("SphereShape3D_n1dj2")
+metadata/_edit_lock_ = true
+
+[node name="OmniLight3D2" type="SpotLight3D" parent="." unique_id=242755334]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.9584503, 0)
+light_color = Color(0, 0.8235294, 0.96862745, 1)
+light_energy = 2.0
+light_size = 2.0
+light_specular = 7.19
+metadata/_edit_lock_ = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=787684368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 light_color = Color(0, 0.8235294, 0.96862745, 1)
-omni_range = 2.5
+light_energy = 2.0
+light_size = 2.0
+light_specular = 7.19
+omni_range = 3.0
+omni_attenuation = 2.0
+metadata/_edit_lock_ = true
 
 [node name="ball_mesh" type="MeshInstance3D" parent="." unique_id=1678485179]
+metadata/_edit_lock_ = true
 
 [node name="outer" type="MeshInstance3D" parent="ball_mesh" unique_id=1885440053]
 mesh = SubResource("SphereMesh_7s4qf")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("4_eew57")
+surface_material_override/0 = ExtResource("4_jj7gd")
 
 [node name="inner" type="MeshInstance3D" parent="ball_mesh" unique_id=1614612660]
 mesh = SubResource("SphereMesh_f7cbr")
 skeleton = NodePath("../outer")
-surface_material_override/0 = ExtResource("5_jj7gd")
+surface_material_override/0 = ExtResource("5_fwo8l")
 
-[node name="front indicator" type="CSGBox3D" parent="." unique_id=1843622735]
+[node name="front indicator" type="CSGBox3D" parent="ball_mesh" unique_id=1843622735]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7252997)
+visible = false
 size = Vector3(0.5, 0.5, 1)
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1223621317]
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1130412008]
 shape = SubResource("SphereShape3D_7s4qf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1790842501]
+libraries/ = SubResource("AnimationLibrary_4m2kh")
+autoplay = &"spawn_animaiton"
+
+[node name="spawn_beam" type="MeshInstance3D" parent="." unique_id=1872208823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+visible = false
+mesh = SubResource("CylinderMesh_iijjg")
+surface_material_override/0 = ExtResource("8_v8l5b")
 
 [node name="attack_timer" type="Timer" parent="." unique_id=1327532496]
 
 [node name="jump_timer" type="Timer" parent="." unique_id=894966696]
 wait_time = 0.5
 
+[node name="shoot_timer" type="Timer" parent="." unique_id=2058433810]
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="jump_timer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]

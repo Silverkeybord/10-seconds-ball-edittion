@@ -661,8 +661,12 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 expand_margin_top = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgfq5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cof4p"]
 content_margin_top = 10.0
+content_margin_bottom = 0.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgfq5"]
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsj0x"]
@@ -685,7 +689,23 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "background_time", "crosshair", "animation", "alot_of_time_sound", "end_run_sound", "you_survived_time", "time_currency", "time_exchange", "normal_upgrades_vbox", "skill_unlock_vbox", "skills_description_panel", "upgrade_description_panel", "skills_description", "upgrade_description", "skills_description_name", "upgrade_description_name")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1mc3"]
+bg_color = Color(0.79341334, 0.7934134, 0.7934132, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="Theme_cof4p"]
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_h1mc3")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f7tlh"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[node name="Control" type="Control" unique_id=1306402346 node_paths=PackedStringArray("time", "survived_time", "background_time", "crosshair", "animation", "alot_of_time_sound", "end_run_sound", "you_survived_time", "time_currency", "time_exchange", "normal_upgrades_vbox", "skill_unlock_vbox", "skills_description_panel", "upgrade_description_panel", "skills_description", "upgrade_description", "skills_description_name", "upgrade_description_name")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -694,6 +714,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nt7q6")
 time = NodePath("time")
+survived_time = NodePath("real_time")
 background_time = NodePath("background_time")
 crosshair = NodePath("Crosshair")
 animation = NodePath("AnimationPlayer")
@@ -731,6 +752,7 @@ text = "10.00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="time" type="Label" parent="." unique_id=265857247]
 layout_mode = 1
@@ -752,6 +774,23 @@ text = "10.00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="real_time" type="Label" parent="." unique_id=1550752947]
+modulate = Color(1, 1, 1, 0.34117648)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 84.0
+offset_right = 20.0
+offset_bottom = 107.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_fonts/font = ExtResource("2_wm3ai")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Crosshair" type="TextureRect" parent="." unique_id=615868136]
 layout_mode = 1
@@ -949,14 +988,14 @@ visible = false
 modulate = Color(1, 1, 1, 0)
 z_index = 2
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p7vwb")
-metadata/_edit_lock_ = true
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="shop" unique_id=1090935492]
 layout_mode = 2
@@ -1004,6 +1043,31 @@ text = "CLOSE"
 modulate = Color(0.5251013, 0.5251013, 0.5251013, 1)
 layout_mode = 2
 texture = ExtResource("5_p7vwb")
+
+[node name="PanelContainer2" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer" unique_id=683766453]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cof4p")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer2" unique_id=1470617122]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="shop/PanelContainer/VBoxContainer/PanelContainer2/HBoxContainer2" unique_id=2144236920]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 32
+text = "Upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="shop/PanelContainer/VBoxContainer/PanelContainer2/HBoxContainer2" unique_id=240335109]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_wm3ai")
+theme_override_font_sizes/font_size = 32
+text = "Skills"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="shop/PanelContainer/VBoxContainer" unique_id=1080691823]
 layout_mode = 2
@@ -1087,6 +1151,10 @@ theme_override_constants/separation = 20
 [node name="ScrollContainer" type="ScrollContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills" unique_id=1020113572]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = SubResource("Theme_cof4p")
+theme_override_constants/scrollbar_h_separation = 5
+theme_override_constants/scrollbar_v_separation = 5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_f7tlh")
 
 [node name="normal_upgrades" type="VBoxContainer" parent="shop/PanelContainer/VBoxContainer/PanelContainer/upgrades_and_skills/ScrollContainer" unique_id=1564985996]
 layout_mode = 2
@@ -1125,9 +1193,9 @@ stream = ExtResource("3_yev5y")
 [node name="end run" type="AudioStreamPlayer" parent="." unique_id=941460615]
 stream = ExtResource("4_gdt2y")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=503392335]
-position = Vector2(659, 891)
-zoom = Vector2(0.4, 0.4)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2079577317]
+position = Vector2(642, 367)
+enabled = false
 
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/try_again" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="try_again_or_leave/VBoxContainer/leave" to="." method="_on_leave_pressed"]

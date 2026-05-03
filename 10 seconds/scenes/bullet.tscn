@@ -52,9 +52,7 @@ albedo_color = Color(0.6745098, 0.6745098, 0.6745098, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_mkf8s"]
 radius = 0.2
 
-[node name="bullet" type="CharacterBody3D" unique_id=2020060623 node_paths=PackedStringArray("fade_in_animation")]
-collision_layer = 0
-collision_mask = 0
+[node name="bullet" type="CharacterBody3D" unique_id=2020060623 node_paths=PackedStringArray("fade_in_animation") groups=["bullets"]]
 script = ExtResource("1_mkf8s")
 fade_in_animation = NodePath("fade_in_animation")
 metadata/bullet = false
@@ -89,6 +87,7 @@ mesh = SubResource("BoxMesh_l5glv")
 surface_material_override/0 = SubResource("StandardMaterial3D_eoqba")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1941380184]
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1784056830]
 shape = SubResource("SphereShape3D_mkf8s")

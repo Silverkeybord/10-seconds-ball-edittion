@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cp60jh80difl2"]
+
+[ext_resource type="PackedScene" uid="uid://cn7qktl4qokma" path="res://3D_assets/tank_shield.glb" id="1_tulsy"]
+[ext_resource type="Material" uid="uid://b1wksqeqhifte" path="res://textures_and_materials/orange/tank_shield.tres" id="3_hbi20"]
+
+[node name="tank_shield" unique_id=844883906 instance=ExtResource("1_tulsy")]
+
+[node name="Cylinder" parent="." index="0" unique_id=1016476365]
+transform = Transform3D(0, -4.371139e-08, -1, -1, 0, 0, 0, 1, -4.371139e-08, 0, 0, 0)
+surface_material_override/0 = ExtResource("3_hbi20")

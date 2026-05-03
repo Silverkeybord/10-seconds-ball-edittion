@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bdvxfk5dvj6fs"]
+
+[ext_resource type="Script" uid="uid://cqvoev0lk3jhp" path="res://scripts/shooter_bullet.gd" id="1_hd1yq"]
+[ext_resource type="Material" uid="uid://do3iikulxpq50" path="res://textures_and_materials/blue/outer.tres" id="1_w57j0"]
+[ext_resource type="PackedScene" uid="uid://duykwlfblt35v" path="res://scenes/time_indication.tscn" id="2_jh5go"]
+[ext_resource type="Material" uid="uid://n7ym276oincj" path="res://textures_and_materials/blue/inner.tres" id="2_u4hvq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0phpd"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_konlv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_n6t5o"]
+radius = 0.4
+height = 0.8
+
+[node name="shooter_bullet" type="CharacterBody3D" unique_id=1626210371]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_hd1yq")
+time_deduction_scene = ExtResource("2_jh5go")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2079749852]
+shape = SubResource("SphereShape3D_0phpd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=801746040]
+transform = Transform3D(0.9999852, -0.0025879452, -0.004780354, 0.0026121133, 0.9999838, 0.005049801, 0.0047671776, -0.0050622365, 0.99997586, 0, 0, 0)
+mesh = SubResource("SphereMesh_konlv")
+surface_material_override/0 = ExtResource("1_w57j0")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1992620859]
+mesh = SubResource("SphereMesh_n6t5o")
+surface_material_override/0 = ExtResource("2_u4hvq")
+
+[node name="OmniLight3D" type="SpotLight3D" parent="." unique_id=178283378]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3.5971658, 0)
+light_color = Color(9.241105e-06, 0.40547553, 0.93366635, 1)
+light_energy = 3.0
+spot_range = 10.0
+spot_attenuation = -2.0
+spot_angle = 30.0
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2039083606]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1330053035]
+shape = SubResource("SphereShape3D_0phpd")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

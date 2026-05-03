@@ -39,7 +39,6 @@ expand_margin_bottom = 5.0
 [node name="upgrade_cell" type="PanelContainer" unique_id=1496350727 node_paths=PackedStringArray("upgrade_name_label", "cost_label", "value_label", "exchange_button", "locked_label", "locked_overlay", "info_button")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_7dvkv")
 script = ExtResource("1_vykn3")
-upgrade = "damage"
 upgrade_name_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/upgrade_name")
 cost_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/cost")
 value_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/value")

@@ -37,6 +37,7 @@ var shake_offset := PURPLE_SHAKE_OFFSET
 
 @export_group("main visuals")
 @export var time : Label
+@export var survived_time : Label
 @export var background_time : Label
 @export var crosshair : TextureRect
 @export var animation : AnimationPlayer
@@ -72,12 +73,14 @@ func _ready() -> void:
 		upgrade_cell.upgrade = upgrade_type
 		normal_upgrades_vbox.add_child(upgrade_cell)
 		upgrade_cell.UI_control = self
+		upgrade_cell.cell_name = upgrade_type
 	
-	for upgrade_type in Global.SHOP_INFO_SKILLS:
-		var upgrade_cell = upgrade_cell_scene.instantiate()
-		upgrade_cell.upgrade = upgrade_type
-		skill_unlock_vbox.add_child(upgrade_cell)
-		upgrade_cell.UI_control = self
+	for skill_type in Global.SHOP_INFO_SKILLS:
+		var skill_cell = upgrade_cell_scene.instantiate()
+		skill_cell.skill = skill_type
+		skill_unlock_vbox.add_child(skill_cell)
+		skill_cell.UI_control = self
+		skill_cell.cell_name = skill_type
 	
 	if Global.unlocked_shop:
 		time_exchange.text = "time exchange?"
@@ -98,11 +101,14 @@ func _process(delta: float) -> void:
 	if not Global.dead:
 		Global.time = max(0, Global.time - delta)
 		Global.run_time += delta
+		survived_time.text = str(snapped(Global.run_time, 0.01))
 	
 	time.text = str(snapped(Global.time, 0.01))
 	background_time.text = time.text
 	
 	time_currency.text = "you have " + str(Global.seconds) + " seconds"
+	
+	$shop.offset_bottom = 0
 	
 	_background_time_shake()
 	_time_color_changes()
@@ -159,15 +165,14 @@ func _background_time_shake() -> void:
 func end_run() -> void:
 	end_run_sound.play()
 	Global.seconds += round(Global.run_time)
+	survived_time.text = ""
 	you_survived_time.text = str(round(Global.run_time * 10) / 10) + SECONDS_TEXT
 	
 	animation.play("end_run")
 	await animation.animation_finished
 	Global._unlock_mouse_movement()
 	
-	var upgrades = normal_upgrades_vbox.get_children()
-	for upgrade in upgrades:
-		upgrade.check_difficulty_unlock()
+	_check_upgrades_and_skills()
 
 
 func _on_leave_pressed() -> void:
@@ -232,3 +237,14 @@ func remove_description(call_node_is_upgrade: bool):
 		upgrade_description_panel.modulate.a = 0
 	else:
 		skills_description_panel.modulate.a = 0
+
+
+func _check_upgrades_and_skills() -> void:
+	var upgrades = normal_upgrades_vbox.get_children()
+	var skills = skill_unlock_vbox.get_children()
+	
+	for upgrade in upgrades:
+		upgrade.check_difficulty_unlock()
+	
+	for skill in skills:
+		skill.check_difficulty_unlock()

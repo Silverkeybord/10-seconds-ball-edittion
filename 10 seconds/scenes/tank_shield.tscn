@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bhwm1kokkk7f5"]
+
+[ext_resource type="PackedScene" uid="uid://cp60jh80difl2" path="res://scenes/tank_shield_mesh.tscn" id="2_4y6fc"]
+[ext_resource type="Script" uid="uid://6hqleir3k5ri" path="res://scripts/tank_shield.gd" id="2_st3ad"]
+[ext_resource type="PackedScene" uid="uid://b8o54t2425o0c" path="res://scenes/temp_sound.tscn" id="2_xms5x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st3ad"]
+size = Vector3(6, 0.6, 3)
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=1214117210 node_paths=PackedStringArray("collision_shape")]
+collision_mask = 0
+script = ExtResource("2_st3ad")
+collision_shape = NodePath("CollisionShape3D")
+temp_sound_scene = ExtResource("2_xms5x")
+metadata/enemy = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=559867452]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_st3ad")
+
+[node name="tank_shield" parent="." unique_id=844883906 instance=ExtResource("2_4y6fc")]

@@ -3,8 +3,8 @@ extends Node3D
 const MIN_ROT : float = -0.99
 const MAX_ROT : float = 0.99
 
-const ZOOM_SPEED := 0.3
-const MAX_ZOOM := 10.0
+const ZOOM_SPEED := 0.4
+const MAX_ZOOM := 15.0
 const MIN_ZOOM := 0.0
 
 const FIRST_PERSON_THRESHOLD := 0.5

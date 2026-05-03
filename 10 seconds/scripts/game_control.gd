@@ -2,15 +2,21 @@ extends Node3D
 
 @export var ui : Control
 
+
 func _process(_delta: float) -> void:
 	if Global.time <= 0 and not Global.dead:
 		Global.time = 0
 		Global.ongoing_run = false
 		Global.dead = true
+		
 		ui.end_run()
 		
 		var alive_enemies = get_tree().get_nodes_in_group("enemys")
 		for x in alive_enemies:
+			x.queue_free()
+		
+		var remaing_bullets = get_tree().get_nodes_in_group("bullets")
+		for x in remaing_bullets:
 			x.queue_free()
 		
 		Global.enemies = 0
@@ -21,3 +27,5 @@ func _process(_delta: float) -> void:
 		Global.highest_difficulty = diff
 	
 	Global.difficulty = diff
+	
+	Global.base_stat_mult = Global.difficulty / Global.BASE_STAT_MULT_FACTOR + 1

@@ -3,7 +3,6 @@ extends CharacterBody3D
 var DASH_DURATION := 0.2
 const SLASH := " / "
 
-
 const SHOOT_SOUND := preload("res://sounds/shoot_sound.WAV")
 
 # light constraintes
@@ -24,7 +23,6 @@ var jump_velocity := 4.5
 var normal_speed := 10.0
 var dash_energy_cost := 30
 
-
 var can_shoot := true
 var holding_jump := false
 
@@ -32,8 +30,8 @@ var dash_timer := 0.0
 var speed = normal_speed
 var energy := 100.0
 
-@export var bullet_scene : PackedScene
-@export var temp_sound_scene : PackedScene
+var dash_bomb_active := true
+var changeing_time_acceleration := false
 
 @export var MAX_ENERGY := 100
 
@@ -41,10 +39,20 @@ var energy := 100.0
 @export var spring_arm : SpringArm3D
 @export var player_light : OmniLight3D
 @export var dash_sfx_audio_player : AudioStreamPlayer3D
+@export var camera_raycast : RayCast3D
+
+@export_subgroup("ui")
 @export var right_energy_bar : ProgressBar
 @export var left_energy_bar : ProgressBar
 @export var energy_label : Label
-@export var camera_raycast : RayCast3D
+@export var dash_toggle_label : Label
+
+@export var ui_animations : AnimationPlayer
+
+@export_group("out of scene")
+@export var dash_bomb_scene : PackedScene
+@export var bullet_scene : PackedScene
+@export var temp_sound_scene : PackedScene
 
 
 func _ready() -> void:
@@ -87,6 +95,9 @@ func _physics_process(delta: float) -> void:
 		set_collision_mask_value(1, false)
 		dash_timer = DASH_DURATION
 		dash_sfx_audio_player.play()
+		
+		if dash_bomb_active and Global.levels["dash bomb"]:
+			_spawn_dash_bomb()
 	
 	if speed != normal_speed:
 		dash_timer -= delta
@@ -100,6 +111,26 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("shoot") and can_shoot:
 		_shoot()
+	
+	if (
+		Input.is_action_pressed("dash_bomb_toggle") 
+		and not ui_animations.is_playing() 
+		and Global.levels["dash bomb"]
+		):
+		
+		dash_bomb_active = not dash_bomb_active
+		
+		if dash_bomb_active:
+			dash_toggle_label.text = "active"
+			dash_toggle_label.modulate = Color(0, 1, 0)
+		else:
+			dash_toggle_label.text = "inactive"
+			dash_toggle_label.modulate = Color(1, 0, 0)
+			
+		# this is something interesting i learnt will you butcher me 
+		# idk will you read this probably not
+		
+		ui_animations.play("toggle_dash_bomb")
 	
 	_energy_generation(delta)
 	_omni_light_scaling()
@@ -164,9 +195,17 @@ func _omni_light_scaling() -> void:
 
 
 func _check_upgrades() -> void:
-	normal_speed = Global.SHOP_INFO_UPGRADES["move speed"]["value"][str(Global.upgrade_levels["move speed"])]
-	reload = Global.SHOP_INFO_UPGRADES["reload"]["value"][str(Global.upgrade_levels["reload"])]
-	energy_regen = Global.SHOP_INFO_UPGRADES["energy regen"]["value"][str(Global.upgrade_levels["energy regen"])]
-	dash_energy_cost = Global.SHOP_INFO_UPGRADES["dash energy reduction"]["value"][str(Global.upgrade_levels["dash energy reduction"])]
-	dash_speed = Global.SHOP_INFO_UPGRADES["dash speed"]["value"][str(Global.upgrade_levels["dash speed"])]
-	jump_velocity = Global.SHOP_INFO_UPGRADES["jump height"]["value"][str(Global.upgrade_levels["jump height"])]
+	normal_speed = Global.SHOP_INFO_UPGRADES["move speed"]["value"][str(Global.levels["move speed"])]
+	reload = Global.SHOP_INFO_UPGRADES["reload"]["value"][str(Global.levels["reload"])]
+	energy_regen = Global.SHOP_INFO_UPGRADES["energy regen"]["value"][str(Global.levels["energy regen"])]
+	dash_energy_cost = Global.SHOP_INFO_UPGRADES["dash energy reduction"]["value"][str(Global.levels["dash energy reduction"])]
+	dash_speed = Global.SHOP_INFO_UPGRADES["dash speed"]["value"][str(Global.levels["dash speed"])]
+	jump_velocity = Global.SHOP_INFO_UPGRADES["jump height"]["value"][str(Global.levels["jump height"])]
+
+
+func _spawn_dash_bomb() -> void:
+	energy -= Global.SHOP_INFO_UPGRADES["dash bomb energy"]["value"][str(Global.levels["dash bomb energy"])]
+	
+	var new_dash_bomb = dash_bomb_scene.instantiate()
+	add_sibling(new_dash_bomb)
+	new_dash_bomb.global_position = global_position

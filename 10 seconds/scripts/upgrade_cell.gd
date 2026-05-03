@@ -7,6 +7,8 @@ const MAX_LEVEL_TEXT := "max level"
 const RUNTIME_DIFFICULTY_RELATION := 10
 
 @export var upgrade : String
+@export var skill : String
+@export var cell_name : String
 
 @export var upgrade_name_label : Label
 @export var cost_label : Label
@@ -20,77 +22,102 @@ const RUNTIME_DIFFICULTY_RELATION := 10
 
 var locked := true
 var required_difficulty : int
+var required_skill : String
 
-var remaining_cost : int
+var cost : int
 var current_value : float
 var next_value : float
-var upgrade_info : Dictionary
+var info : Dictionary
 var description : String
 
 
 func _ready() -> void:
 	await get_tree().process_frame
-	upgrade_info = Global.SHOP_INFO_UPGRADES[upgrade]
-	required_difficulty = upgrade_info["required_difficulty"]
+	if upgrade:
+		info = Global.SHOP_INFO_UPGRADES[upgrade]
+	else:
+		info = Global.SHOP_INFO_SKILLS[skill]
 	
-	if upgrade_info.has("description"):
-		description = upgrade_info["description"]
+	if info.has("required_difficulty"):
+		required_difficulty = info["required_difficulty"]
+	
+	if info.has("required_skill"):
+		required_skill = info["required_skill"]
+		locked_label.text = "buy " + required_skill
+	
+	if info.has("description"):
+		description = info["description"]
 		info_button.disabled = false
 		info_button.modulate = Color.WHITE
 	
-	if Global.highest_difficulty >= required_difficulty and locked:
-		locked_overlay.visible = false
-		locked = false
-		exchange_button.disabled = false
-	else:
-		locked_label.text = (SURVIVE_FOR_TEXT 
-							+ str(required_difficulty * RUNTIME_DIFFICULTY_RELATION)
-							+ "s")
-	
+	check_difficulty_unlock()
 	_update_values()
 
 
 func _update_values() -> void:
-	upgrade_name_label.text = upgrade
+	if upgrade:
+		cell_name = upgrade
+	else:
+		cell_name = skill
 	
-	if Global.upgrade_levels[upgrade] == upgrade_info["levels"]:
-		current_value = upgrade_info["value"][str(Global.upgrade_levels[upgrade])]
+	upgrade_name_label.text = cell_name
+	
+	if Global.levels[cell_name] == info["levels"]:
+		current_value = info["value"][str(Global.levels[cell_name])]
 		
 		cost_label.text = MAX_LEVEL_TEXT
 		value_label.text = VALUE_TEXT + str(current_value)
 		exchange_button.disabled = true
 	else:
-		remaining_cost = upgrade_info["cost"][str(Global.upgrade_levels[upgrade])]
-		current_value = upgrade_info["value"][str(Global.upgrade_levels[upgrade])]
-		next_value = upgrade_info["value"][str(Global.upgrade_levels[upgrade] + 1)]
+		cost = info["cost"][str(Global.levels[cell_name])]
+		current_value = info["value"][str(Global.levels[cell_name])]
+		next_value = info["value"][str(Global.levels[cell_name] + 1)]
 		
-		cost_label.text = COST_TEXT + str(remaining_cost) + " sec"
+		cost_label.text = COST_TEXT + str(cost) + " sec"
 		value_label.text = VALUE_TEXT + str(current_value) + "  ->  " + str(next_value)
 
 
 func _on_exchange_pressed() -> void:
-	if Global.seconds >= remaining_cost:
-		Global.upgrade_levels[upgrade] += 1
-		Global.seconds -= remaining_cost
+	if Global.seconds >= cost:
+		Global.seconds -= cost
+		Global.levels[cell_name] += 1
 		_update_values()
-	else:
-		remaining_cost -= Global.seconds
-		Global.seconds = 0
-		cost_label.text = COST_TEXT + str(remaining_cost) + " sec"
+		if skill:
+			UI_control._check_upgrades_and_skills()
 
 
 func check_difficulty_unlock() -> void:
-	if Global.highest_difficulty >= required_difficulty and locked:
-		locked_overlay.visible = false
-		locked = false
-		exchange_button.disabled = false
+	if required_skill:
+		if Global.levels[required_skill] != 0:
+			_unlock()
+	else:
+		if Global.highest_difficulty >= required_difficulty and locked:
+			_unlock()
+		else:
+			locked_label.text = (
+				SURVIVE_FOR_TEXT + 
+				str(required_difficulty * RUNTIME_DIFFICULTY_RELATION) +
+				"s"
+				)
+
+
+func _unlock() -> void:
+	locked_overlay.visible = false
+	locked = false
+	exchange_button.disabled = false
 
 
 func _on_info_button_mouse_entered() -> void:
 	if description:
-		UI_control.display_description(description, true, upgrade)
+		if upgrade:
+			UI_control.display_description(description, true, upgrade)
+		else:
+			UI_control.display_description(description, false, upgrade)
 
 
 func _on_info_button_mouse_exited() -> void:
 	if description:
-		UI_control.remove_description(true)
+		if upgrade:
+			UI_control.remove_description(true)
+		else:
+			UI_control.remove_description(false)
