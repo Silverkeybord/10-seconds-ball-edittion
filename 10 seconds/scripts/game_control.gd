@@ -26,6 +26,9 @@ func _process(_delta: float) -> void:
 	if Global.highest_difficulty < diff:
 		Global.highest_difficulty = diff
 	
+	if diff > Global.HIGHEST_DIFFICULTY:
+		diff = Global.HIGHEST_DIFFICULTY
+	
 	Global.difficulty = diff
 	
 	Global.base_stat_mult = Global.difficulty / Global.BASE_STAT_MULT_FACTOR + 1

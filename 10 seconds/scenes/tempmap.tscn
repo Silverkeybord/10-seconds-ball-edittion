@@ -31,7 +31,7 @@ uv1_triplanar = true
 [sub_resource type="CylinderMesh" id="CylinderMesh_m6tcy"]
 top_radius = 50.0
 bottom_radius = 50.0
-height = 20.0
+height = 50.0
 
 [node name="tempmap" type="Node3D" unique_id=1812292337 node_paths=PackedStringArray("ui")]
 script = ExtResource("1_88atw")
@@ -54,12 +54,12 @@ size = Vector3(100, 5, 100)
 material = SubResource("StandardMaterial3D_annxu")
 
 [node name="wall" type="CSGCylinder3D" parent="map" unique_id=1714748983]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.268066, 0)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 radius = 55.0
-height = 10.0
+height = 44.536133
 sides = 20
 material = SubResource("StandardMaterial3D_1rlsf")
 

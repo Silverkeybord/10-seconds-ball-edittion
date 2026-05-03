@@ -296,7 +296,7 @@ const ENEMY_INFO := {
 		"speed" : 30,
 		"health" : 5,
 		"time_damage" : -10,
-		"time_reward" : 5,
+		"time_reward" : 8,
 		"energy_reward" : 8,
 		
 		"jump_speed_boost" : 35,
@@ -312,7 +312,7 @@ const ENEMY_INFO := {
 		"speed" : 10,
 		"health" : 25,
 		"time_damage" : -10,
-		"time_reward" : 8,
+		"time_reward" : 10,
 		"energy_reward" : 8,
 		
 		"scale" : Vector3(2, 2, 2),
@@ -327,11 +327,11 @@ const ENEMY_INFO := {
 		"speed" : 8,
 		"health" : 10,
 		"time_damage" : -10,
-		"time_reward" : 5,
+		"time_reward" : 8,
 		"energy_reward" : 7,
 		
-		"shoot_interval" : 0.5,
-		"shoot_damage" : -3
+		"shoot_interval" : 0.75,
+		"shoot_damage" : -2
 	},
 	"purple" : { # time steal
 		"inner" : preload("res://textures_and_materials/purple/inner.tres"),
@@ -365,7 +365,7 @@ const DIFFICULTY_SPAWN_RATES := {
 			"purple" : 0,
 			"green" : 0
 		},
-		"spawn_interval" : 0.1
+		"spawn_interval" : 2.5
 	},
 	"1" : {
 		"spawn_rates" : {
@@ -618,7 +618,7 @@ const ENEMY_TYPES := {
 	"green" : ENEMY_ENUMS.GREEN
 }
 
-const HIGHEST_DIFFICULTY := 0
+const HIGHEST_DIFFICULTY := 20
 
 var dead := true
 var shop_open := false
@@ -632,8 +632,8 @@ var difficulty := 0
 var base_stat_mult := 0.0
 
 # save varibles
-var seconds := 100000
-var highest_difficulty := 20
+var seconds := 0
+var highest_difficulty := 0
 var shop_unlock_remaining_cost := 20
 
 var unlocked_shop := false

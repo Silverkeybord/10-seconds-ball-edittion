@@ -14,7 +14,7 @@ const SPAWN_SOUND := preload("res://sounds/enemy/enemy_spawn.WAV")
 const REMOVE_SHIELD_DISTANCE := 15.0
 const SHIELD_Z_OFFSET := -1.75
 
-const SHOOTER_SHOOTING_RANGE := 50.0
+const SHOOTER_SHOOTING_RANGE := 40.0
 const SHOOTER_MOVEMENT_RANGE := 30.0
 
 var jumping := false
