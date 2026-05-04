@@ -61,14 +61,14 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_smehm"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=140477337 node_paths=PackedStringArray("spring_arm", "player_light", "dash_sfx_audio_player", "camera_raycast", "right_energy_bar", "left_energy_bar", "energy_label", "dash_toggle_label", "ui_animations") groups=["player"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=140477337 node_paths=PackedStringArray("player_light", "dash_sfx_audio_player", "camera_raycast", "time_scale_label", "right_energy_bar", "left_energy_bar", "energy_label", "dash_toggle_label", "ui_animations") groups=["player"]]
 collision_layer = 7
 collision_mask = 7
 script = ExtResource("1_3vyb7")
-spring_arm = NodePath("camera_pivot/SpringArm3D")
 player_light = NodePath("OmniLight3D")
 dash_sfx_audio_player = NodePath("dash_sould")
 camera_raycast = NodePath("camera_pivot/SpringArm3D/camera/RayCast3D")
+time_scale_label = NodePath("time_scale_label")
 right_energy_bar = NodePath("right")
 left_energy_bar = NodePath("left")
 energy_label = NodePath("energy lable")
@@ -92,11 +92,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_hqtel")
 mesh = SubResource("BoxMesh_sweqy")
 skeleton = NodePath("../outter box")
 
-[node name="camera_pivot" type="Node3D" parent="." unique_id=1113499944 node_paths=PackedStringArray("player", "spring_arm")]
+[node name="camera_pivot" type="Node3D" parent="." unique_id=1113499944 node_paths=PackedStringArray("player", "spring_arm", "time_scale_label")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 script = ExtResource("2_g2els")
 player = NodePath("..")
 spring_arm = NodePath("SpringArm3D")
+time_scale_label = NodePath("../time_scale_label")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="camera_pivot" unique_id=921416198]
 collision_mask = 2
@@ -194,3 +195,20 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tuyoq")
 theme_override_font_sizes/font_size = 32
 text = "active"
+
+[node name="time_scale_label" type="Label" parent="." unique_id=191423088]
+visible = false
+anchors_preset = -1
+anchor_left = 0.49500003
+anchor_top = 1.0
+anchor_right = 0.49500003
+anchor_bottom = 1.0
+offset_left = -144.60004
+offset_top = -144.0
+offset_right = 157.39996
+offset_bottom = -111.0
+theme_override_fonts/font = ExtResource("6_tuyoq")
+theme_override_font_sizes/font_size = 32
+text = "1X speed"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

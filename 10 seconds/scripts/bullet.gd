@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const speed := 80.0
+const speed := 100.0
 const lifetime := 2.0
 
 var direction := Vector3.ZERO

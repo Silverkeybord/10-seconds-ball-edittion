@@ -15,6 +15,10 @@ func _ready() -> void:
 	_on_spawn_timer_timeout()
 
 
+func _process(_delta: float) -> void:
+	Engine.time_scale = Global.time_scale
+
+
 func _on_spawn_timer_timeout() -> void:
 	if Global.enemies >= ENEMY_CAP or Global.dead:
 		return

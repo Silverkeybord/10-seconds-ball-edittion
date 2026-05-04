@@ -16,6 +16,9 @@ const ENERGY_MAX := 10.0
 const ENERGY_CURVE := 150.0
 const ENERGY_THRESHOLD := 20.0
 
+const TIME_SCALE_ENERGY_COST := 10.0
+const MIN_ENERGY_FOR_TIME_SCALE := 10.0
+
 var energy_regen := 1
 var dash_speed := 50.0
 var reload := 0.5
@@ -31,15 +34,15 @@ var speed = normal_speed
 var energy := 100.0
 
 var dash_bomb_active := true
-var changeing_time_acceleration := false
+var changeing_time_scale := false
 
 @export var MAX_ENERGY := 100
 
 @export_group("in scene exports")
-@export var spring_arm : SpringArm3D
 @export var player_light : OmniLight3D
 @export var dash_sfx_audio_player : AudioStreamPlayer3D
 @export var camera_raycast : RayCast3D
+@export var time_scale_label : Label
 
 @export_subgroup("ui")
 @export var right_energy_bar : ProgressBar
@@ -132,6 +135,8 @@ func _process(delta: float) -> void:
 		
 		ui_animations.play("toggle_dash_bomb")
 	
+	
+	_time_scale_handeling(delta)
 	_energy_generation(delta)
 	_omni_light_scaling()
 
@@ -162,7 +167,7 @@ func _shoot() -> void:
 
 
 func _energy_generation(delta : float) -> void:
-	energy += energy_regen / (1 / delta)
+	energy += (energy_regen / (1 / delta)) / Global.time_scale
 	energy = round(clamp(energy, 0, MAX_ENERGY) * 100) / 100
 	right_energy_bar.value = energy
 	left_energy_bar.value = energy
@@ -209,3 +214,20 @@ func _spawn_dash_bomb() -> void:
 	var new_dash_bomb = dash_bomb_scene.instantiate()
 	add_sibling(new_dash_bomb)
 	new_dash_bomb.global_position = global_position
+
+
+func _time_scale_handeling(delta : float) -> void:
+	if Global.levels["time manipulation"] == 0 or energy < MIN_ENERGY_FOR_TIME_SCALE:
+		Global.time_scale = 1
+		return
+	
+	if Input.is_action_pressed("time_acceleration_toggle"):
+		changeing_time_scale = true
+		time_scale_label.visible = true
+	else:
+		changeing_time_scale = false
+		time_scale_label.visible = false
+	
+	if Global.time_scale != 1:
+		energy -= delta * TIME_SCALE_ENERGY_COST * Global.time_scale
+		

@@ -11,7 +11,7 @@ enum ENEMY_ENUMS {
 }
 
 const SAVE_PATH := "user://10_seconds_3D.save"
-const BASE_STAT_MULT_FACTOR := 10.0
+const BASE_STAT_MULT_FACTOR := 15.0
 
 const SHOP_INFO_UPGRADES = {
 	"damage" : {
@@ -20,8 +20,10 @@ const SHOP_INFO_UPGRADES = {
 			"1" : 30,
 			"2" : 50,
 			"3" : 75,
-			"4" : 120,
-			"5" : 200,
+			"4" : 100,
+			"5" : 125,
+			"6" : 150,
+			"7" : 200,
 		},
 		"value" : {
 			"0" : 1,
@@ -31,8 +33,11 @@ const SHOP_INFO_UPGRADES = {
 			"4" : 5,
 			"5" : 8,
 			"6" : 10,
+			"7" : 12,
+			"8" : 15,
 		},
-		"levels" : 6,
+		
+		"levels" : 8,
 		"required_difficulty" : 0
 	},
 	#############################################################################################
@@ -62,8 +67,8 @@ const SHOP_INFO_UPGRADES = {
 		"cost" : {
 			"0" : 25,
 			"1" : 30,
-			"2" : 45,
-			"3" : 70,
+			"2" : 40,
+			"3" : 60,
 		},
 		"value" : {
 			"0" : 4.5,
@@ -79,8 +84,8 @@ const SHOP_INFO_UPGRADES = {
 	"move speed" : {
 		"cost" : {
 			"0" : 20,
-			"1" : 40,
-			"2" : 60,
+			"1" : 35,
+			"2" : 50,
 		},
 		"value" : {
 			"0" : 10,
@@ -145,10 +150,10 @@ const SHOP_INFO_UPGRADES = {
 		"value" : {
 			"0" : 30,
 			"1" : 25,
-			"2" : 22,
-			"3" : 29,
-			"4" : 17,
-			"5" : 15,
+			"2" : 20,
+			"3" : 17,
+			"4" : 14,
+			"5" : 10,
 		},
 		"levels" : 5,
 		"required_difficulty" : 6
@@ -240,28 +245,31 @@ const SHOP_INFO_SKILLS = {
 		"required_difficulty" : 4
 	},
 	#############################################################################################
-	#"time acceleration" : {
-		#"cost" : {
-			#"0" : 100,
-			#"1" : 120,
-			#"2" : 160,
-			#"3" : 200,
-			#"4" : 240,
-		#},
-		#"value" : {
-			#"0" : 0,
-			#"1" : 0.2,
-			#"2" : 0.4,
-			#"3" : 0.6,
-			#"4" : 0.8,
-			#"5" : 1,
-		#},
-		#"levels" : 5,
-		#"description" : "time starts to bend at your will, faster
-						#(right click and move your mouse up and down)",
-		#"required_difficulty" : 10
-	#},
-}
+	"time manipulation" : {
+		"cost" : {
+			"0" : 100,
+			"1" : 120,
+			"2" : 160,
+			"3" : 200,
+			"4" : 240,
+		},
+		"value" : {
+			"0" : 1,
+			"1" : 1.2,
+			"2" : 1.4,
+			"3" : 1.6,
+			"4" : 1.8,
+			"5" : 2,
+		},
+		"levels" : 5,
+		"description" : "time starts to bend at your will,
+						Drains 10 * time scale energy/s
+						resets time scale if energy falls below 10
+						Energy regen rate, is uneffected
+						(hold 'Q' and scroll up and down to ajust time)",
+		"required_difficulty" : 10
+	},
+} 
 const ENEMY_INFO := {
 	"red" : { # basic
 		"inner" : preload("res://textures_and_materials/red/inner.tres"),
@@ -453,10 +461,10 @@ const DIFFICULTY_SPAWN_RATES := {
 	},
 	"8" : {
 		"spawn_rates" : {
-			"red" : 0.1,
+			"red" : 0.2,
 			"yellow" : 0.2,
 			"cyan" : 0.4,
-			"orange" : 0.3,
+			"orange" : 0.2,
 			"blue" : 0,
 			"purple" : 0,
 			"green" : 0
@@ -465,10 +473,10 @@ const DIFFICULTY_SPAWN_RATES := {
 	},
 	"9" : {
 		"spawn_rates" : {
-			"red" : 0.1,
+			"red" : 0.3,
 			"yellow" : 0.3,
 			"cyan" : 0.2,
-			"orange" : 0.4,
+			"orange" : 0.2,
 			"blue" : 0,
 			"purple" : 0,
 			"green" : 0
@@ -489,10 +497,10 @@ const DIFFICULTY_SPAWN_RATES := {
 	},
 	"11" : {
 		"spawn_rates" : {
-			"red" : 0.1,
+			"red" : 0.3,
 			"yellow" : 0.2,
 			"cyan" : 0,
-			"orange" : 0.4,
+			"orange" : 0.2,
 			"blue" : 0.3,
 			"purple" : 0,
 			"green" : 0
@@ -631,6 +639,8 @@ var run_time := 0.0
 var difficulty := 0
 var base_stat_mult := 0.0
 
+var time_scale := 1.0
+
 # save varibles
 var seconds := 0
 var highest_difficulty := 0
@@ -647,14 +657,14 @@ var levels := {
 	"energy regen" : 0,
 	"dash energy reduction" : 0,
 	"dash speed" : 0,
-	"time acceleration" : 0,
 	"gods assist" : 0,
 	
 	# skill upgrades
 	"dash bomb energy" : 0,
 	
 	# skills
-	"dash bomb" : 0
+	"dash bomb" : 0,
+	"time manipulation" : 0,
 }
 
 
